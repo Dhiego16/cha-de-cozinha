@@ -11,11 +11,11 @@ const CONVITE_CONFIG = {
      1. IDENTIDADE DA HOMENAGEADA
   --------------------------------------------------------------------- */
   homenageada: {
-    nomeCompleto: "Nome Completo da Homenageada",
-    primeiroNome: "Nome",
+    nomeCompleto: "Marina Ferreira",
+    primeiroNome: "Marina",
     // Usado no monograma SVG animado (tela de loading + hero + rodapé).
     // Pode ser uma letra só ("N") ou algo curto como "N.S."
-    monograma: "N"
+    monograma: "M"
   },
 
   /* ---------------------------------------------------------------------
@@ -37,7 +37,7 @@ const CONVITE_CONFIG = {
   --------------------------------------------------------------------- */
   hero: {
     imagemFundo: "assets/images/hero.jpg",
-    frase: "Uma frase carinhosa ou versículo para abrir o convite.",
+    frase: "Estou montando a minha nova casinha e cada detalhe fica ainda mais especial com você por perto.",
     textoBotao: "Ver Convite"
   },
 
@@ -46,9 +46,9 @@ const CONVITE_CONFIG = {
      Formato ISO 8601 — usado pela contagem regressiva.
   --------------------------------------------------------------------- */
   evento: {
-    dataISO: "2026-11-21T15:00:00",
-    dataFormatada: "21 de Novembro de 2026",
-    diaSemana: "Sábado",
+    dataISO: "2026-12-13T15:00:00",
+    dataFormatada: "13 de Dezembro de 2026",
+    diaSemana: "Domingo",
     horario: "15h00"
   },
 
@@ -81,15 +81,15 @@ const CONVITE_CONFIG = {
   --------------------------------------------------------------------- */
   cerimonia: {
     titulo: "Chá de Cozinha",
-    local: "Nome do local (salão, casa, etc.)",
-    endereco: "Endereço completo do evento",
-    data: "21 de Novembro de 2026",
+    local: "Espaço Jardim Flor de Lis",
+    endereco: "Av. Perimetral, Qd. 12, Lt. 05, Setor Central, Senador Canedo - GO",
+    data: "13 de Dezembro de 2026",
     horario: "15h",
-    linkMaps: "https://maps.google.com/?q=Endereco+do+evento",
+    linkMaps: "https://maps.google.com/?q=Espaco+Jardim+Flor+de+Lis+Senador+Canedo",
     // Mapa embutido por busca de endereço (sem API key, sem precisar de
     // latitude/longitude na mão — o Google localiza a partir do texto
     // abaixo). Se quiser trocar o local, só editar essa linha.
-    mapaQuery: "Endereço completo do evento"
+    mapaQuery: "Espaço Jardim Flor de Lis, Av. Perimetral, Setor Central, Senador Canedo - GO"
   },
 
   /* ---------------------------------------------------------------------
@@ -98,7 +98,7 @@ const CONVITE_CONFIG = {
   presentes: {
     titulo: "Lista de Presentes",
     subtitulo: "Sua presença é o nosso maior presente. Mas se desejar contribuir com a nova cozinha, preparamos esta lista com carinho.",
-    chavePix: "chave-pix@email.com",
+    chavePix: "marina.ferreira@email.com",
     tipoChave: "E-mail",
     itens: [
       {
@@ -174,10 +174,10 @@ const CONVITE_CONFIG = {
     // Ou seja: se mudar titulo/descricao aqui, troque também as mesmas
     // tags no <head> do index.html, senão o preview do link continua
     // mostrando o texto genérico antigo.
-    titulo: "Chá de Cozinha da Nome | Data do Chá",
-    descricao: "Você está convidado para o chá de cozinha da Nome.",
+    titulo: "Chá de Cozinha da Marina | 13 de Dezembro de 2026",
+    descricao: "Você está convidado para o chá de cozinha da Marina.",
     imagemPreview: "assets/images/share-preview.jpg",
-    urlSite: "https://seusite.com.br"
+    urlSite: "https://chadacozinha-marina.vercel.app"
   }
 
 };
