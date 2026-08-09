@@ -375,7 +375,6 @@
   ----------------------------------------------------------------------- */
   const formatBRL = (n) => (Number(n) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const FIRESTORE_COLLECTION = "presentes-reservas";
-  const RSVP_COLLECTION = "confirmacoes-presenca";
 
   // Guarda o nome do último presente reservado nesta sessão, pra já
   // preencher automaticamente na Confirmação de Presença logo abaixo.
@@ -551,18 +550,18 @@
   ----------------------------------------------------------------------- */
   function initConfirmacaoPresenca() {
     const c = cfg.confirmacaoPresenca || {};
+    const homenageada = cfg.homenageada || {};
     const titulo = $("#confirmacao-titulo");
     const subtitulo = $("#confirmacao-subtitulo");
     if (titulo && c.titulo) titulo.textContent = c.titulo;
     if (subtitulo && c.subtitulo) subtitulo.textContent = c.subtitulo;
 
-    const card = $(".rsvp-card");
     const giftInfo = $("#rsvp-gift-info");
     const giftName = $("#rsvp-gift-name");
     const nomeInput = $("#rsvp-nome");
     const acompanhantesInput = $("#rsvp-acompanhantes");
     const btn = $("#rsvp-confirm-btn");
-    const confirmedMsg = $("#rsvp-confirmed-msg");
+    const hint = $("#rsvp-hint");
     if (!btn) return;
 
     // Exposto pra initPresentes() chamar assim que alguém reservar um item.
@@ -574,59 +573,35 @@
     };
     atualizarRsvpGiftInfo();
 
-    const toast = $("#toast");
-    const toastText = $("#toast-text");
-    let toastTimer = null;
-    function mostrarToast(texto) {
-      if (!toast) return;
-      if (toastText) toastText.textContent = texto;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
-    }
-
-    if (!window.firebaseDb) {
+    const numero = (c.whatsapp || "").replace(/\D/g, "");
+    if (!numero) {
       btn.disabled = true;
-      btn.title = "Confirmação ainda não configurada";
+      btn.title = "Número de WhatsApp ainda não configurado";
+      if (hint) hint.textContent = "Confirmação ainda não configurada.";
       return;
     }
 
-    const db = window.firebaseDb;
-    let enviando = false;
-
-    btn.addEventListener("click", async () => {
-      if (enviando) return;
+    btn.addEventListener("click", () => {
       const nome = (nomeInput?.value || "").trim();
       const acompanhantes = Math.max(1, Math.min(10, Number(acompanhantesInput?.value) || 1));
       if (!nome) {
         nomeInput?.focus();
-        mostrarToast("Digite seu nome pra confirmar.");
         return;
       }
 
-      enviando = true;
-      btn.disabled = true;
-
-      try {
-        await db.collection(RSVP_COLLECTION).add({
-          nome,
-          acompanhantes,
-          presente: ultimoPresenteReservado || null,
-          confirmadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
-        if (card) {
-          $$("label, input", card).forEach((el) => { el.hidden = true; });
-          if (giftInfo) giftInfo.hidden = true;
-          btn.hidden = true;
-        }
-        if (confirmedMsg) confirmedMsg.hidden = false;
-      } catch (err) {
-        console.error("Erro ao confirmar presença:", err);
-        mostrarToast("Não foi possível confirmar agora. Tente de novo em instantes.");
-        btn.disabled = false;
-        enviando = false;
+      const linhas = [
+        `Olá! Confirmando minha presença no Chá de Cozinha de ${homenageada.primeiroNome || ""} 🎉`,
+        "",
+        `Nome: ${nome}`,
+        `Acompanhantes: ${acompanhantes}`
+      ];
+      if (ultimoPresenteReservado) {
+        linhas.push(`Presente escolhido: ${ultimoPresenteReservado}`);
       }
+
+      const mensagem = linhas.join("\n");
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank", "noopener");
     });
   }
 
@@ -723,7 +698,6 @@
       // Sem config preenchida (ou SDK não carregado): segue sem Firebase,
       // a lista de presentes mostra o botão "Reservar" desativado.
       initPresentes();
-      initConfirmacaoPresenca();
       return;
     }
 
@@ -733,17 +707,14 @@
         .then(() => {
           window.firebaseDb = firebase.firestore();
           initPresentes();
-          initConfirmacaoPresenca();
         })
         .catch((err) => {
           console.error("Firebase — falha na autenticação anônima:", err);
           initPresentes();
-          initConfirmacaoPresenca();
         });
     } catch (err) {
       console.error("Firebase — falha ao inicializar:", err);
       initPresentes();
-      initConfirmacaoPresenca();
     }
   }
 
@@ -762,6 +733,7 @@
     initGaleria();
     initLocais();
     initFirebase();
+    initConfirmacaoPresenca();
     initMensagemFinal();
     initMusica();
     initScrollEffects();

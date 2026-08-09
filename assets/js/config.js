@@ -186,12 +186,16 @@ const CONVITE_CONFIG = {
 
   /* ---------------------------------------------------------------------
      8.6 CONFIRMAÇÃO DE PRESENÇA (RSVP)
-     Usa a mesma base do Firebase configurada acima. Sem isso preenchido,
-     o botão de confirmar fica desativado, igual ao de reservar presente.
+     Ao clicar em "Confirmar Presença", abre o WhatsApp já com uma
+     mensagem pronta (nome, acompanhantes e o presente escolhido, se
+     houver) pro número configurado abaixo.
   --------------------------------------------------------------------- */
   confirmacaoPresenca: {
     titulo: "Confirme sua Presença",
-    subtitulo: "Ajude a gente a organizar tudo com carinho — confirme se vai poder vir!"
+    subtitulo: "Ajude a gente a organizar tudo com carinho — confirme se vai poder vir!",
+    // Número com DDI + DDD, só números (ex: Brasil, DDD 62): "5562999999999"
+    // Sem isso preenchido, o botão de confirmar fica desativado.
+    whatsapp: ""
   },
 
   /* ---------------------------------------------------------------------

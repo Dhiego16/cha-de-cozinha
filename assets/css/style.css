@@ -803,15 +803,11 @@ input { font-family: inherit; }
 .rsvp-card input:last-of-type { margin-bottom: 1.8rem; }
 .rsvp-card input:focus { outline: none; border-color: var(--color-gold); }
 .rsvp-btn { align-self: stretch; justify-content: center; }
-.rsvp-confirmed-msg {
-  margin-top: 1.2rem;
+.rsvp-hint {
+  margin-top: 1rem;
   text-align: center;
-  color: var(--color-gold-soft);
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
 }
 
 /* Modal de reserva */

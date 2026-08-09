@@ -54,9 +54,9 @@ mesmo visual, tipografia e animações — só trocando o conteúdo.
 - Lista de presentes com **reserva em tempo real** (Firestore) — quando
   alguém reserva um item, ele já fica indisponível pra qualquer outra
   pessoa que estiver com a página aberta, sem precisar recarregar
-- **Confirmação de presença** — botão dedicado que grava nome, número de
-  acompanhantes e, se a pessoa já tiver reservado um presente na mesma
-  visita, o presente escolhido também vai junto
+- **Confirmação de presença** — botão que abre o WhatsApp com uma
+  mensagem pronta (nome, acompanhantes e o presente escolhido, se houver)
+  direcionada ao número configurado
 - Mensagem final de encerramento
 - Botão voltar ao topo + barra de progresso de scroll
 - Cursor personalizado discreto (desktop)
@@ -108,35 +108,13 @@ service cloud.firestore {
       // "roubar" ou cancelar a reserva de outra pessoa pelo navegador).
       allow update, delete: if false;
     }
-
-    match /confirmacoes-presenca/{confirmacaoId} {
-      // Ninguém precisa ler pela página — quem organiza confere direto
-      // pelo Firebase Console (Firestore Database > coleção).
-      allow read: if false;
-
-      // Só pode CRIAR uma confirmação nova, com nome e quantidade de
-      // acompanhantes válidos. "presente" é opcional (pode vir null).
-      allow create: if request.auth != null
-                    && request.resource.data.keys().hasAll(['nome', 'acompanhantes', 'confirmadoEm'])
-                    && request.resource.data.nome is string
-                    && request.resource.data.nome.size() > 0
-                    && request.resource.data.nome.size() < 100
-                    && request.resource.data.acompanhantes is int
-                    && request.resource.data.acompanhantes > 0
-                    && request.resource.data.acompanhantes <= 10;
-
-      allow update, delete: if false;
-    }
   }
 }
 ```
 
 Pronto — a partir daqui, cada item reservado vira um documento na coleção
 `presentes-reservas` (o ID do documento é o `id` do item no `config.js`),
-com o nome de quem reservou e a data/hora. Da mesma forma, cada confirmação
-de presença vira um documento na coleção `confirmacoes-presenca`, com
-nome, número de acompanhantes e o presente escolhido (se houver) — pra ver
-as confirmações, é só abrir essa coleção no Firebase Console.
+com o nome de quem reservou e a data/hora.
 
 **Se quiser ver ou desfazer uma reserva manualmente** (ex: alguém errou o
 nome, ou quer liberar um item de novo): Firebase Console → Firestore
@@ -163,6 +141,9 @@ longitude nem de chave de API. Só editar o endereço nesse campo.
 - [ ] Preencher `cerimonia.local`, `endereco` e `mapaQuery` com o endereço real.
 - [ ] Revisar os itens da lista de presentes (nomes, valores, imagens).
 - [ ] Preencher `config.js > firebase` com os dados do seu projeto Firebase (veja seção "Configurando o Firebase" abaixo) para a reserva funcionar.
+- [ ] Preencher `config.js > confirmacaoPresenca.whatsapp` com o número
+      (DDI + DDD + número, só dígitos, ex: `"5562999999999"`) para o botão
+      "Confirmar Presença" funcionar.
 - [ ] **Meta tags de compartilhamento**: as tags `<title>`, `og:title` e
       `og:description` no `<head>` do `index.html` são fixas — precisam ser
       editadas manualmente sempre que mudar `compartilhamento` em
