@@ -234,10 +234,10 @@
       const ics = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//Convite de Casamento//PT-BR",
+        "PRODID:-//Cha de Cozinha//PT-BR",
         "CALSCALE:GREGORIAN",
         "BEGIN:VEVENT",
-        `UID:${Date.now()}@convite-casamento`,
+        `UID:${Date.now()}@convite-cha-de-cozinha`,
         `DTSTAMP:${fmt(new Date())}`,
         `DTSTART:${fmt(start)}`,
         `DTEND:${fmt(end)}`,
@@ -252,7 +252,7 @@
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = "casamento.ics";
+      link.download = "cha-de-cozinha.ics";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
