@@ -375,6 +375,12 @@
   ----------------------------------------------------------------------- */
   const formatBRL = (n) => (Number(n) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const FIRESTORE_COLLECTION = "presentes-reservas";
+  const RSVP_COLLECTION = "confirmacoes-presenca";
+
+  // Guarda o nome do último presente reservado nesta sessão, pra já
+  // preencher automaticamente na Confirmação de Presença logo abaixo.
+  let ultimoPresenteReservado = null;
+  let atualizarRsvpGiftInfo = null; // ligado por initConfirmacaoPresenca()
 
   function initPresentes() {
     const p = cfg.presentes || {};
@@ -519,6 +525,8 @@
           });
         });
         mostrarToast(`Presente reservado, obrigado ${nome}! 🎉`);
+        ultimoPresenteReservado = itemAtual.nome;
+        if (atualizarRsvpGiftInfo) atualizarRsvpGiftInfo();
         fecharModal();
       } catch (err) {
         if (err && err.message === "JA_RESERVADO") {
@@ -535,6 +543,91 @@
 
     modalConfirm?.addEventListener("click", confirmarReserva);
     modalInput?.addEventListener("keydown", (e) => { if (e.key === "Enter") confirmarReserva(); });
+  }
+
+  /* -----------------------------------------------------------------------
+     11.6 CONFIRMAÇÃO DE PRESENÇA — grava no Firestore, junto com o
+     presente escolhido (se a pessoa já tiver reservado um nesta sessão)
+  ----------------------------------------------------------------------- */
+  function initConfirmacaoPresenca() {
+    const c = cfg.confirmacaoPresenca || {};
+    const titulo = $("#confirmacao-titulo");
+    const subtitulo = $("#confirmacao-subtitulo");
+    if (titulo && c.titulo) titulo.textContent = c.titulo;
+    if (subtitulo && c.subtitulo) subtitulo.textContent = c.subtitulo;
+
+    const card = $(".rsvp-card");
+    const giftInfo = $("#rsvp-gift-info");
+    const giftName = $("#rsvp-gift-name");
+    const nomeInput = $("#rsvp-nome");
+    const acompanhantesInput = $("#rsvp-acompanhantes");
+    const btn = $("#rsvp-confirm-btn");
+    const confirmedMsg = $("#rsvp-confirmed-msg");
+    if (!btn) return;
+
+    // Exposto pra initPresentes() chamar assim que alguém reservar um item.
+    atualizarRsvpGiftInfo = () => {
+      if (giftInfo && giftName && ultimoPresenteReservado) {
+        giftName.textContent = ultimoPresenteReservado;
+        giftInfo.hidden = false;
+      }
+    };
+    atualizarRsvpGiftInfo();
+
+    const toast = $("#toast");
+    const toastText = $("#toast-text");
+    let toastTimer = null;
+    function mostrarToast(texto) {
+      if (!toast) return;
+      if (toastText) toastText.textContent = texto;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+
+    if (!window.firebaseDb) {
+      btn.disabled = true;
+      btn.title = "Confirmação ainda não configurada";
+      return;
+    }
+
+    const db = window.firebaseDb;
+    let enviando = false;
+
+    btn.addEventListener("click", async () => {
+      if (enviando) return;
+      const nome = (nomeInput?.value || "").trim();
+      const acompanhantes = Math.max(1, Math.min(10, Number(acompanhantesInput?.value) || 1));
+      if (!nome) {
+        nomeInput?.focus();
+        mostrarToast("Digite seu nome pra confirmar.");
+        return;
+      }
+
+      enviando = true;
+      btn.disabled = true;
+
+      try {
+        await db.collection(RSVP_COLLECTION).add({
+          nome,
+          acompanhantes,
+          presente: ultimoPresenteReservado || null,
+          confirmadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        if (card) {
+          $$("label, input", card).forEach((el) => { el.hidden = true; });
+          if (giftInfo) giftInfo.hidden = true;
+          btn.hidden = true;
+        }
+        if (confirmedMsg) confirmedMsg.hidden = false;
+      } catch (err) {
+        console.error("Erro ao confirmar presença:", err);
+        mostrarToast("Não foi possível confirmar agora. Tente de novo em instantes.");
+        btn.disabled = false;
+        enviando = false;
+      }
+    });
   }
 
   /* -----------------------------------------------------------------------
@@ -630,6 +723,7 @@
       // Sem config preenchida (ou SDK não carregado): segue sem Firebase,
       // a lista de presentes mostra o botão "Reservar" desativado.
       initPresentes();
+      initConfirmacaoPresenca();
       return;
     }
 
@@ -639,14 +733,17 @@
         .then(() => {
           window.firebaseDb = firebase.firestore();
           initPresentes();
+          initConfirmacaoPresenca();
         })
         .catch((err) => {
           console.error("Firebase — falha na autenticação anônima:", err);
           initPresentes();
+          initConfirmacaoPresenca();
         });
     } catch (err) {
       console.error("Firebase — falha ao inicializar:", err);
       initPresentes();
+      initConfirmacaoPresenca();
     }
   }
 

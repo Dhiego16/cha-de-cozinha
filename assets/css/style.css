@@ -750,6 +750,70 @@ input { font-family: inherit; }
 }
 .gift-reservado-badge i { color: var(--color-gold); }
 
+/* -------------------------------------------------------------------------
+   17.5 CONFIRMAÇÃO DE PRESENÇA
+------------------------------------------------------------------------- */
+.rsvp-section { background: var(--color-bg-alt); position: relative; }
+.rsvp-card {
+  max-width: 420px;
+  margin: 2.4rem auto 0;
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.rsvp-gift-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(201, 168, 104, 0.08);
+  border: 1px solid rgba(201, 168, 104, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1.4rem;
+}
+.rsvp-gift-info i { color: var(--color-gold); }
+.rsvp-gift-info strong { color: var(--color-text); font-weight: 600; }
+.rsvp-card label {
+  display: block;
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.rsvp-card input {
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  padding: 0.85rem 1rem;
+  font-size: var(--fs-body);
+  font-family: var(--font-body);
+  transition: border-color var(--dur-fast);
+  margin-bottom: 1.4rem;
+}
+.rsvp-card input:last-of-type { margin-bottom: 1.8rem; }
+.rsvp-card input:focus { outline: none; border-color: var(--color-gold); }
+.rsvp-btn { align-self: stretch; justify-content: center; }
+.rsvp-confirmed-msg {
+  margin-top: 1.2rem;
+  text-align: center;
+  color: var(--color-gold-soft);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 /* Modal de reserva */
 .reserve-modal {
   position: fixed;

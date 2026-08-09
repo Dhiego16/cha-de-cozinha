@@ -223,6 +223,38 @@
     </div>
 
     <!-- ============================================================
+         07. CONFIRMAÇÃO DE PRESENÇA
+    ============================================================ -->
+    <section class="section rsvp-section" id="confirmacao">
+      <div class="container narrow">
+        <p class="section-eyebrow light" data-aos="fade-up">Sua presença importa</p>
+        <h2 class="section-title light" data-aos="fade-up" data-aos-delay="100" id="confirmacao-titulo">Confirme sua Presença</h2>
+        <p class="section-subtitle light" data-aos="fade-up" data-aos-delay="150" id="confirmacao-subtitulo"></p>
+
+        <div class="rsvp-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="rsvp-gift-info" id="rsvp-gift-info" hidden>
+            <i class="fa-solid fa-gift"></i>
+            <span>Presente escolhido: <strong id="rsvp-gift-name"></strong></span>
+          </div>
+
+          <label for="rsvp-nome">Seu nome</label>
+          <input type="text" id="rsvp-nome" placeholder="Como quer ser identificado(a)" autocomplete="name">
+
+          <label for="rsvp-acompanhantes">Quantas pessoas (incluindo você)</label>
+          <input type="number" id="rsvp-acompanhantes" min="1" max="10" value="1">
+
+          <button type="button" class="btn btn-primary rsvp-btn" id="rsvp-confirm-btn">
+            <i class="fa-solid fa-check"></i> <span>Confirmar Presença</span>
+          </button>
+
+          <p class="rsvp-confirmed-msg" id="rsvp-confirmed-msg" hidden>
+            <i class="fa-solid fa-circle-check"></i> Presença confirmada! Obrigado 💛
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
          09. MENSAGEM FINAL
     ============================================================ -->
     <section class="section final-message-section">

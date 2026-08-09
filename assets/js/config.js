@@ -185,6 +185,16 @@ const CONVITE_CONFIG = {
   },
 
   /* ---------------------------------------------------------------------
+     8.6 CONFIRMAÇÃO DE PRESENÇA (RSVP)
+     Usa a mesma base do Firebase configurada acima. Sem isso preenchido,
+     o botão de confirmar fica desativado, igual ao de reservar presente.
+  --------------------------------------------------------------------- */
+  confirmacaoPresenca: {
+    titulo: "Confirme sua Presença",
+    subtitulo: "Ajude a gente a organizar tudo com carinho — confirme se vai poder vir!"
+  },
+
+  /* ---------------------------------------------------------------------
      9. MENSAGEM FINAL
   --------------------------------------------------------------------- */
   mensagemFinal: {
