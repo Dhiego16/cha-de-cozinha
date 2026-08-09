@@ -14,7 +14,7 @@ mesmo visual, tipografia e animações — só trocando o conteúdo.
 
 1. Abra `assets/js/config.js`.
 2. Edite os campos (nome da homenageada, data, local, itens da lista de
-   presentes, Pix, etc.). Cada campo tem comentário explicando o que é.
+   presentes, etc.). Cada campo tem comentário explicando o que é.
 3. Substitua as imagens em `assets/images/` pelas fotos reais, mantendo os
    mesmos nomes de arquivo (ou ajuste os caminhos no `config.js`).
    - **Os arquivos atuais são placeholders** (marca d'água "SUBSTITUA..."):
@@ -51,7 +51,9 @@ mesmo visual, tipografia e animações — só trocando o conteúdo.
   Calendar, Apple Calendar e Outlook)
 - Galeria com lightbox (zoom, swipe, teclado, navegação)
 - Local do evento com mapa incorporado (Google Maps, sem API key)
-- Lista de presentes com cópia automática da chave Pix + toast de confirmação
+- Lista de presentes com **reserva em tempo real** (Firestore) — quando
+  alguém reserva um item, ele já fica indisponível pra qualquer outra
+  pessoa que estiver com a página aberta, sem precisar recarregar
 - Mensagem final de encerramento
 - Botão voltar ao topo + barra de progresso de scroll
 - Cursor personalizado discreto (desktop)
@@ -66,7 +68,62 @@ hospedagem estática: GitHub Pages, Netlify, Vercel, Cloudflare Pages ou até
 um servidor compartilhado comum. Não há dependências de build — é só HTML,
 CSS e JS puros.
 
-## Mapa sem API key
+## Configurando o Firebase (reserva de presentes)
+
+A Lista de Presentes usa o Firestore pra guardar quem reservou cada item,
+em tempo real — sem isso configurado, a lista aparece normal mas o botão
+"Reservar" fica desativado.
+
+1. Crie um projeto grátis em https://console.firebase.google.com
+2. No projeto, clique em "Adicionar app" → ícone Web (`</>`) → registre
+   o app. Ele vai te mostrar um objeto `firebaseConfig` — copie os valores
+   (`apiKey`, `authDomain`, `projectId`, `storageBucket`,
+   `messagingSenderId`, `appId`) para `config.js > firebase`.
+3. No menu lateral, vá em **Build → Firestore Database → Criar banco de
+   dados**, modo produção, escolha a região mais próxima (ex: `southamerica-east1`).
+4. Vá em **Build → Authentication → Sign-in method** e ative o provedor
+   **Anônimo**. É assim que o site identifica "alguém confiável" sem pedir
+   login — cada visitante recebe uma sessão anônima automaticamente.
+5. Em **Firestore Database → Regras**, substitua pelo conteúdo abaixo e
+   publique:
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /presentes-reservas/{itemId} {
+      // Qualquer um pode ler (precisa ver o que já foi reservado)
+      allow read: if request.auth != null;
+
+      // Só pode CRIAR uma reserva nova (não sobrescrever uma existente),
+      // e só com um campo "nome" de texto não vazio.
+      allow create: if request.auth != null
+                    && request.resource.data.keys().hasAll(['nome', 'reservadoEm'])
+                    && request.resource.data.nome is string
+                    && request.resource.data.nome.size() > 0
+                    && request.resource.data.nome.size() < 100;
+
+      // Ninguém pode editar ou apagar uma reserva já feita (evita alguém
+      // "roubar" ou cancelar a reserva de outra pessoa pelo navegador).
+      allow update, delete: if false;
+    }
+  }
+}
+```
+
+Pronto — a partir daqui, cada item reservado vira um documento na coleção
+`presentes-reservas` (o ID do documento é o `id` do item no `config.js`),
+com o nome de quem reservou e a data/hora.
+
+**Se quiser ver ou desfazer uma reserva manualmente** (ex: alguém errou o
+nome, ou quer liberar um item de novo): Firebase Console → Firestore
+Database → coleção `presentes-reservas` → apague o documento do item.
+
+**Custo**: o plano gratuito do Firestore ("Spark") cobre com folga o uso
+de um convite — o limite generoso de leituras/escritas por dia é bem
+maior do que a quantidade de convidados que costuma acessar esses sites.
+
+
 
 O bloco de mapa usa o embed público do Google Maps a partir de uma busca
 por texto (`cerimonia.mapaQuery` em `config.js`) — não precisa de latitude/
@@ -81,7 +138,8 @@ longitude nem de chave de API. Só editar o endereço nesse campo.
 - [ ] Conferir `evento.dataISO`, `evento.dataFormatada` e
       `cerimonia.data`/`horario` — precisam bater entre si.
 - [ ] Preencher `cerimonia.local`, `endereco` e `mapaQuery` com o endereço real.
-- [ ] Preencher `presentes.chavePix` e revisar os itens da lista.
+- [ ] Revisar os itens da lista de presentes (nomes, valores, imagens).
+- [ ] Preencher `config.js > firebase` com os dados do seu projeto Firebase (veja seção "Configurando o Firebase" abaixo) para a reserva funcionar.
 - [ ] **Meta tags de compartilhamento**: as tags `<title>`, `og:title` e
       `og:description` no `<head>` do `index.html` são fixas — precisam ser
       editadas manualmente sempre que mudar `compartilhamento` em

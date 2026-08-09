@@ -97,11 +97,13 @@ const CONVITE_CONFIG = {
   --------------------------------------------------------------------- */
   presentes: {
     titulo: "Lista de Presentes",
-    subtitulo: "Sua presença é o nosso maior presente. Mas se desejar contribuir com a nova cozinha, preparamos esta lista com carinho.",
-    chavePix: "marina.ferreira@email.com",
-    tipoChave: "E-mail",
+    subtitulo: "Sua presença é o nosso maior presente. Reserve um item abaixo pra gente não repetir presentes — assim que você reservar, ele já some da lista de qualquer outra pessoa que estiver vendo, na hora.",
     itens: [
       {
+        // "id" precisa ser único e ESTÁVEL — é o que amarra este item à
+        // reserva salva no Firestore. Pode mudar nome/descrição/valor à
+        // vontade, mas evite mudar o "id" depois que alguém já reservou.
+        id: "jogo-panelas",
         nome: "Jogo de Panelas",
         descricao: "Ajude a equipar a nova cozinha",
         valor: 350.00,
@@ -109,6 +111,7 @@ const CONVITE_CONFIG = {
         linkExterno: null
       },
       {
+        id: "jogo-copos",
         nome: "Jogo de Copos",
         descricao: "Para os cafés e sucos do dia a dia",
         valor: 120.00,
@@ -116,6 +119,7 @@ const CONVITE_CONFIG = {
         linkExterno: null
       },
       {
+        id: "jogo-pratos",
         nome: "Jogo de Pratos",
         descricao: "Louças para as refeições em família",
         valor: 280.00,
@@ -123,6 +127,7 @@ const CONVITE_CONFIG = {
         linkExterno: null
       },
       {
+        id: "liquidificador",
         nome: "Liquidificador",
         descricao: "Um clássico que nunca pode faltar",
         valor: 250.00,
@@ -130,6 +135,7 @@ const CONVITE_CONFIG = {
         linkExterno: null
       },
       {
+        id: "jogo-talheres",
         nome: "Jogo de Talheres",
         descricao: "Detalhes que fazem a diferença na mesa",
         valor: 190.00,
@@ -137,6 +143,7 @@ const CONVITE_CONFIG = {
         linkExterno: null
       },
       {
+        id: "escorredor-louca",
         nome: "Escorredor de Louça",
         descricao: "Praticidade pro dia a dia na pia",
         valor: 150.00,
@@ -144,6 +151,30 @@ const CONVITE_CONFIG = {
         linkExterno: null
       }
     ]
+  },
+
+  /* ---------------------------------------------------------------------
+     8.5 FIREBASE — reserva de presentes em tempo real
+     Sem essa configuração preenchida, a lista de presentes funciona
+     normalmente pra exibir, mas o botão "Reservar" fica desativado com
+     um aviso, porque não tem onde salvar a reserva.
+
+     Como pegar esses valores:
+     1. Crie um projeto em https://console.firebase.google.com (grátis)
+     2. Adicione um app Web (ícone </>) e copie o objeto de config que
+        aparece — é isso que vai aqui embaixo.
+     3. Ative o Firestore Database (modo produção) em Build > Firestore.
+     4. Ative Authentication > Sign-in method > Anônimo (Anonymous).
+     5. Em Firestore > Regras, cole as regras que estão no README deste
+        projeto (seção "Configurando o Firebase").
+  --------------------------------------------------------------------- */
+  firebase: {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
   },
 
   /* ---------------------------------------------------------------------

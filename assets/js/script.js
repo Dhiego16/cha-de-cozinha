@@ -367,9 +367,10 @@
   }
 
   /* -----------------------------------------------------------------------
-     11.5 LISTA DE PRESENTES — render + cópia de chave Pix
+     11.5 LISTA DE PRESENTES — reserva em tempo real via Firestore
   ----------------------------------------------------------------------- */
   const formatBRL = (n) => (Number(n) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const FIRESTORE_COLLECTION = "presentes-reservas";
 
   function initPresentes() {
     const p = cfg.presentes || {};
@@ -382,58 +383,154 @@
     const itens = Array.isArray(p.itens) ? p.itens : [];
     if (!grid) return;
 
-    grid.innerHTML = itens.map((item, i) => {
-      const acaoBtn = item.linkExterno
-        ? `<a href="${item.linkExterno}" target="_blank" rel="noopener" class="gift-btn">Presentear</a>`
-        : `<button type="button" class="gift-btn" data-pix-btn data-nome="${item.nome}">Presentear</button>`;
-      return `
-        <article class="gift-card" data-aos="fade-up" data-aos-delay="${(i % 3) * 90}">
-          <div class="gift-image"><img src="${item.imagem}" alt="${item.nome}" loading="lazy"></div>
-          <div class="gift-body">
-            <h3 class="gift-name">${item.nome}</h3>
-            <p class="gift-desc">${item.descricao}</p>
-            <div class="gift-footer">
-              <span class="gift-value">${formatBRL(item.valor)}</span>
-              ${acaoBtn}
-            </div>
-          </div>
-        </article>
-      `;
-    }).join("");
-
+    // --- toast reutilizado pra avisos ("reservado!", "já foi reservado", etc.) ---
     const toast = $("#toast");
     const toastText = $("#toast-text");
     let toastTimer = null;
-
     function mostrarToast(texto) {
       if (!toast) return;
       if (toastText) toastText.textContent = texto;
       toast.classList.add("show");
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
     }
 
-    async function copiarPix() {
-      const chave = p.chavePix || "";
-      try {
-        await navigator.clipboard.writeText(chave);
-      } catch (err) {
-        // fallback para navegadores sem suporte à Clipboard API
-        const temp = document.createElement("textarea");
-        temp.value = chave;
-        temp.style.position = "fixed";
-        temp.style.opacity = "0";
-        document.body.appendChild(temp);
-        temp.select();
-        document.execCommand("copy");
-        document.body.removeChild(temp);
+    // --- render inicial dos cards (estado "carregando") ---
+    function botaoHtml(item, estado) {
+      if (item.linkExterno) {
+        return `<a href="${item.linkExterno}" target="_blank" rel="noopener" class="gift-btn">Presentear</a>`;
       }
-      mostrarToast("Chave Pix copiada.");
+      if (estado === "carregando") {
+        return `<button type="button" class="gift-btn" disabled>Carregando…</button>`;
+      }
+      if (estado === "indisponivel") {
+        return `<button type="button" class="gift-btn" disabled title="Reserva ainda não configurada">Reservar</button>`;
+      }
+      return `<button type="button" class="gift-btn" data-reservar-btn data-id="${item.id}">Reservar</button>`;
     }
 
-    $$("[data-pix-btn]", grid).forEach((btn) => {
-      btn.addEventListener("click", copiarPix);
+    grid.innerHTML = itens.map((item, i) => `
+      <article class="gift-card" data-aos="fade-up" data-aos-delay="${(i % 3) * 90}" data-item-id="${item.id}">
+        <div class="gift-image"><img src="${item.imagem}" alt="${item.nome}" loading="lazy"></div>
+        <div class="gift-body">
+          <h3 class="gift-name">${item.nome}</h3>
+          <p class="gift-desc">${item.descricao}</p>
+          <div class="gift-footer">
+            <span class="gift-value">${formatBRL(item.valor)}</span>
+            ${botaoHtml(item, "carregando")}
+          </div>
+        </div>
+      </article>
+    `).join("");
+
+    // --- atualiza um card específico conforme o estado de reserva ---
+    function aplicarEstado(item, reserva) {
+      const card = grid.querySelector(`[data-item-id="${item.id}"]`);
+      if (!card) return;
+      const footer = card.querySelector(".gift-footer");
+      card.classList.toggle("gift-card--reservado", !!reserva);
+
+      if (item.linkExterno) return; // link externo não participa da reserva
+
+      if (reserva) {
+        footer.innerHTML = `
+          <span class="gift-value">${formatBRL(item.valor)}</span>
+          <span class="gift-reservado-badge"><i class="fa-solid fa-check"></i> Reservado por ${reserva.nome}</span>
+        `;
+      } else {
+        footer.innerHTML = `
+          <span class="gift-value">${formatBRL(item.valor)}</span>
+          ${botaoHtml(item, "disponivel")}
+        `;
+        const btn = footer.querySelector("[data-reservar-btn]");
+        btn?.addEventListener("click", () => abrirModalReserva(item));
+      }
+    }
+
+    // --- Firebase indisponível/não configurado: mostra tudo como indisponível ---
+    if (!window.firebaseDb) {
+      itens.forEach((item) => {
+        const card = grid.querySelector(`[data-item-id="${item.id}"]`);
+        const footer = card?.querySelector(".gift-footer");
+        if (footer && !item.linkExterno) {
+          footer.innerHTML = `
+            <span class="gift-value">${formatBRL(item.valor)}</span>
+            ${botaoHtml(item, "indisponivel")}
+          `;
+        }
+      });
+      return;
+    }
+
+    // --- assina a coleção inteira em tempo real ---
+    const db = window.firebaseDb;
+    db.collection(FIRESTORE_COLLECTION).onSnapshot((snapshot) => {
+      const reservas = {};
+      snapshot.forEach((doc) => { reservas[doc.id] = doc.data(); });
+      itens.forEach((item) => aplicarEstado(item, reservas[item.id] || null));
+    }, (err) => {
+      console.error("Firestore (presentes) erro ao ouvir mudanças:", err);
+      mostrarToast("Não foi possível carregar as reservas agora.");
     });
+
+    // --- modal de reserva (pede o nome de quem está reservando) ---
+    const modal = $("#reserve-modal");
+    const modalItemName = $("#reserve-modal-item");
+    const modalInput = $("#reserve-modal-input");
+    const modalConfirm = $("#reserve-modal-confirm");
+    const modalCancel = $("#reserve-modal-cancel");
+    let itemAtual = null;
+
+    function abrirModalReserva(item) {
+      if (!modal) return;
+      itemAtual = item;
+      if (modalItemName) modalItemName.textContent = item.nome;
+      if (modalInput) modalInput.value = "";
+      modal.hidden = false;
+      setTimeout(() => modalInput?.focus(), 50);
+    }
+    function fecharModal() {
+      if (modal) modal.hidden = true;
+      itemAtual = null;
+    }
+
+    modalCancel?.addEventListener("click", fecharModal);
+    modal?.addEventListener("click", (e) => { if (e.target === modal) fecharModal(); });
+
+    async function confirmarReserva() {
+      const nome = (modalInput?.value || "").trim();
+      if (!nome || !itemAtual) return;
+      if (modalConfirm) modalConfirm.disabled = true;
+
+      const ref = db.collection(FIRESTORE_COLLECTION).doc(itemAtual.id);
+      try {
+        await db.runTransaction(async (tx) => {
+          const doc = await tx.get(ref);
+          if (doc.exists) {
+            throw new Error("JA_RESERVADO");
+          }
+          tx.set(ref, {
+            nome,
+            reservadoEm: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        });
+        mostrarToast(`Presente reservado, obrigado ${nome}! 🎉`);
+        fecharModal();
+      } catch (err) {
+        if (err && err.message === "JA_RESERVADO") {
+          mostrarToast("Ops! Alguém acabou de reservar esse item agora. Escolha outro. 😅");
+          fecharModal();
+        } else {
+          console.error("Erro ao reservar presente:", err);
+          mostrarToast("Não foi possível reservar agora. Tente de novo em instantes.");
+        }
+      } finally {
+        if (modalConfirm) modalConfirm.disabled = false;
+      }
+    }
+
+    modalConfirm?.addEventListener("click", confirmarReserva);
+    modalInput?.addEventListener("keydown", (e) => { if (e.key === "Enter") confirmarReserva(); });
   }
 
   /* -----------------------------------------------------------------------
@@ -519,6 +616,37 @@
   }
 
   /* -----------------------------------------------------------------------
+     11.4 FIREBASE — inicialização (auth anônima + Firestore)
+  ----------------------------------------------------------------------- */
+  function initFirebase() {
+    const fb = cfg.firebase || {};
+    const configurado = !!(fb.apiKey && fb.projectId);
+
+    if (!configurado || typeof firebase === "undefined") {
+      // Sem config preenchida (ou SDK não carregado): segue sem Firebase,
+      // a lista de presentes mostra o botão "Reservar" desativado.
+      initPresentes();
+      return;
+    }
+
+    try {
+      firebase.initializeApp(fb);
+      firebase.auth().signInAnonymously()
+        .then(() => {
+          window.firebaseDb = firebase.firestore();
+          initPresentes();
+        })
+        .catch((err) => {
+          console.error("Firebase — falha na autenticação anônima:", err);
+          initPresentes();
+        });
+    } catch (err) {
+      console.error("Firebase — falha ao inicializar:", err);
+      initPresentes();
+    }
+  }
+
+  /* -----------------------------------------------------------------------
      BOOTSTRAP
   ----------------------------------------------------------------------- */
   function init() {
@@ -532,7 +660,7 @@
     initAddToCalendar();
     initGaleria();
     initLocais();
-    initPresentes();
+    initFirebase();
     initMensagemFinal();
     initMusica();
     initScrollEffects();

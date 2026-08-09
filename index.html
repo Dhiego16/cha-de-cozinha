@@ -204,8 +204,22 @@
       </div>
     </section>
 
-    <!-- Toast de confirmação (Pix copiado) -->
-    <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">Chave Pix copiada.</span></div>
+    <!-- Toast de confirmação -->
+    <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">Presente reservado.</span></div>
+
+    <!-- Modal: pede o nome de quem está reservando o presente -->
+    <div class="reserve-modal" id="reserve-modal" hidden>
+      <div class="reserve-modal-card">
+        <p class="reserve-modal-eyebrow">Reservar presente</p>
+        <h3 class="reserve-modal-item" id="reserve-modal-item"></h3>
+        <label for="reserve-modal-input">Seu nome</label>
+        <input type="text" id="reserve-modal-input" placeholder="Como quer ser identificado(a)" autocomplete="name">
+        <div class="reserve-modal-actions">
+          <button type="button" class="btn btn-outline btn-small" id="reserve-modal-cancel">Cancelar</button>
+          <button type="button" class="btn btn-primary btn-small" id="reserve-modal-confirm">Confirmar reserva</button>
+        </div>
+      </div>
+    </div>
 
     <!-- ============================================================
          09. MENSAGEM FINAL
@@ -231,6 +245,14 @@
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <!-- Firebase (usado pela Lista de Presentes, pra reserva de itens em
+       tempo real). Se assets/js/config.js > firebase estiver vazio, o
+       site funciona normal e a reserva fica só desativada. -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
   <script src="assets/js/config.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
