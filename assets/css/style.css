@@ -1,6 +1,6 @@
 /* =========================================================================
    style.css
-   Convite Digital de Casamento — Design System Premium
+   Convite Digital de Chá de Cozinha — Design System Premium
    Inspiração: Apple / Tesla — grafite quase-preto, dourado champanhe
    como único acento, tipografia serifada com peso editorial + sans
    utilitária limpa, glassmorphism discreto, movimento com propósito.
@@ -749,6 +749,31 @@ input { font-family: inherit; }
   padding: 1.5rem;
   background: rgba(6, 6, 7, 0.72);
   backdrop-filter: blur(4px);
+}
+.reserve-modal[hidden] { display: none; }
+
+/* Cursor personalizado (desktop) */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gold);
+  background: transparent;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.2s ease, width 0.2s ease, height 0.2s ease, margin 0.2s ease;
+}
+.custom-cursor.active { opacity: 1; }
+.custom-cursor.grow {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  background: rgba(201, 168, 104, 0.12);
 }
 .reserve-modal-card {
   width: 100%;
