@@ -169,12 +169,12 @@ const CONVITE_CONFIG = {
         projeto (seção "Configurando o Firebase").
   --------------------------------------------------------------------- */
   firebase: {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyCq6xCzIpvuzqp9ZPj9346ZZvhrkCRQBYQ",
+    authDomain: "cha-de-cozinha-b6c21.firebaseapp.com",
+    projectId: "cha-de-cozinha-b6c21",
+    storageBucket: "cha-de-cozinha-b6c21.firebasestorage.app",
+    messagingSenderId: "3035028040",
+    appId: "1:3035028040:web:b7dafeace8844431c1567d"
   },
 
   /* ---------------------------------------------------------------------
