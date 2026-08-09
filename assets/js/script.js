@@ -54,6 +54,10 @@
   ----------------------------------------------------------------------- */
   function initLoading() {
     const el = $("#loading-screen");
+    const textoEl = $("#loading-text");
+    if (textoEl && cfg.carregamento && cfg.carregamento.texto) {
+      textoEl.textContent = cfg.carregamento.texto;
+    }
     const minDuration = 1800;
     const start = Date.now();
     document.body.style.overflow = "hidden";

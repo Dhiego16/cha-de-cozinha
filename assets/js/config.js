@@ -11,11 +11,11 @@ const CONVITE_CONFIG = {
      1. IDENTIDADE DA HOMENAGEADA
   --------------------------------------------------------------------- */
   homenageada: {
-    nomeCompleto: "Marina Ferreira",
-    primeiroNome: "Marina",
+    nomeCompleto: "Ana e Maicon",
+    primeiroNome: "Ana e Maicon",
     // Usado no monograma SVG animado (tela de loading + hero + rodapé).
     // Pode ser uma letra só ("N") ou algo curto como "N.S."
-    monograma: "M"
+    monograma: "A & M"
   },
 
   /* ---------------------------------------------------------------------
@@ -37,8 +37,15 @@ const CONVITE_CONFIG = {
   --------------------------------------------------------------------- */
   hero: {
     imagemFundo: "assets/images/hero.jpg",
-    frase: "Estou montando a minha nova casinha e cada detalhe fica ainda mais especial com você por perto.",
+    frase: "Estamos montando a nossa nova casinha e cada detalhe fica ainda mais especial com você por perto.",
     textoBotao: "Ver Convite"
+  },
+
+  /* ---------------------------------------------------------------------
+     3.5 TELA DE CARREGAMENTO
+  --------------------------------------------------------------------- */
+  carregamento: {
+    texto: "Você foi convidado para o Chá de Cozinha!"
   },
 
   /* ---------------------------------------------------------------------
@@ -56,8 +63,8 @@ const CONVITE_CONFIG = {
      5. MENSAGEM DE ABERTURA
   --------------------------------------------------------------------- */
   mensagemAbertura: {
-    titulo: "Vem comemorar comigo",
-    texto: "Estou montando a minha nova casinha e nada me deixaria mais feliz do que ter você por perto nesse momento tão especial. Vem tomar um chazinho e comemorar comigo!"
+    titulo: "Vem comemorar com a gente",
+    texto: "Estamos montando a nossa nova casinha e nada nos deixaria mais feliz do que ter você por perto nesse momento tão especial. Vem tomar um chazinho e comemorar com a gente!"
   },
 
   /* ---------------------------------------------------------------------
@@ -181,7 +188,7 @@ const CONVITE_CONFIG = {
      9. MENSAGEM FINAL
   --------------------------------------------------------------------- */
   mensagemFinal: {
-    texto: "Obrigada de coração por fazer parte desse momento comigo. Sua presença é o que mais importa!"
+    texto: "Obrigado de coração por fazer parte desse momento com a gente. Sua presença é o que mais importa!"
   },
 
   /* ---------------------------------------------------------------------
@@ -205,8 +212,8 @@ const CONVITE_CONFIG = {
     // Ou seja: se mudar titulo/descricao aqui, troque também as mesmas
     // tags no <head> do index.html, senão o preview do link continua
     // mostrando o texto genérico antigo.
-    titulo: "Chá de Cozinha da Marina | 13 de Dezembro de 2026",
-    descricao: "Você está convidado para o chá de cozinha da Marina.",
+    titulo: "Chá de Cozinha de Ana e Maicon | 13 de Dezembro de 2026",
+    descricao: "Você está convidado para o chá de cozinha de Ana e Maicon.",
     imagemPreview: "assets/images/share-preview.jpg",
     urlSite: "https://chadacozinha-marina.vercel.app"
   }
