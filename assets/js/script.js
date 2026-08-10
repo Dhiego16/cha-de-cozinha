@@ -373,7 +373,6 @@
   /* -----------------------------------------------------------------------
      11.5 LISTA DE PRESENTES — reserva em tempo real via Firestore
   ----------------------------------------------------------------------- */
-  const formatBRL = (n) => (Number(n) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const FIRESTORE_COLLECTION = "presentes-reservas";
 
   // Guarda o nome do último presente reservado nesta sessão, pra já
@@ -425,7 +424,6 @@
           <h3 class="gift-name">${item.nome}</h3>
           <p class="gift-desc">${item.descricao}</p>
           <div class="gift-footer">
-            <span class="gift-value">${formatBRL(item.valor)}</span>
             ${botaoHtml(item, "carregando")}
           </div>
         </div>
@@ -443,12 +441,10 @@
 
       if (reserva) {
         footer.innerHTML = `
-          <span class="gift-value">${formatBRL(item.valor)}</span>
           <span class="gift-reservado-badge"><i class="fa-solid fa-check"></i> Reservado por ${reserva.nome}</span>
         `;
       } else {
         footer.innerHTML = `
-          <span class="gift-value">${formatBRL(item.valor)}</span>
           ${botaoHtml(item, "disponivel")}
         `;
         const btn = footer.querySelector("[data-reservar-btn]");
@@ -463,7 +459,6 @@
         const footer = card?.querySelector(".gift-footer");
         if (footer && !item.linkExterno) {
           footer.innerHTML = `
-            <span class="gift-value">${formatBRL(item.valor)}</span>
             ${botaoHtml(item, "indisponivel")}
           `;
         }

@@ -108,20 +108,18 @@ const CONVITE_CONFIG = {
     itens: [
       {
         // "id" precisa ser único e ESTÁVEL — é o que amarra este item à
-        // reserva salva no Firestore. Pode mudar nome/descrição/valor à
+        // reserva salva no Firestore. Pode mudar nome/descrição à
         // vontade, mas evite mudar o "id" depois que alguém já reservou.
-        id: "jogo-panelas",
-        nome: "Jogo de Panelas",
-        descricao: "Ajude a equipar a nova cozinha",
-        valor: 350.00,
-        imagem: "assets/images/presente-01.svg",
+        id: "jogo-cama",
+        nome: "Jogo de Cama",
+        descricao: "Pra deixar o quarto ainda mais aconchegante",
+        imagem: "assets/images/presente-07.svg",
         linkExterno: null
       },
       {
         id: "jogo-copos",
         nome: "Jogo de Copos",
         descricao: "Para os cafés e sucos do dia a dia",
-        valor: 120.00,
         imagem: "assets/images/presente-02.svg",
         linkExterno: null
       },
@@ -129,32 +127,98 @@ const CONVITE_CONFIG = {
         id: "jogo-pratos",
         nome: "Jogo de Pratos",
         descricao: "Louças para as refeições em família",
-        valor: 280.00,
         imagem: "assets/images/presente-03.svg",
         linkExterno: null
       },
       {
-        id: "liquidificador",
-        nome: "Liquidificador",
-        descricao: "Um clássico que nunca pode faltar",
-        valor: 250.00,
-        imagem: "assets/images/presente-04.svg",
+        id: "jogo-tacas",
+        nome: "Jogo de Taças",
+        descricao: "Pra brindar os bons momentos",
+        imagem: "assets/images/presente-08.svg",
         linkExterno: null
       },
       {
-        id: "jogo-talheres",
-        nome: "Jogo de Talheres",
+        id: "jogo-xicaras",
+        nome: "Jogo de Xícaras",
+        descricao: "Pro cafezinho e chá de todo dia",
+        imagem: "assets/images/presente-09.svg",
+        linkExterno: null
+      },
+      {
+        id: "conjunto-panelas",
+        nome: "Conjunto de Panelas",
+        descricao: "Ajude a equipar a nova cozinha",
+        imagem: "assets/images/presente-01.svg",
+        linkExterno: null
+      },
+      {
+        id: "potes-hermeticos",
+        nome: "Potes Herméticos",
+        descricao: "Praticidade pra organizar a despensa",
+        imagem: "assets/images/presente-10.svg",
+        linkExterno: null
+      },
+      {
+        id: "panela-pressao",
+        nome: "Panela de Pressão",
+        descricao: "Pra deixar o feijão pronto rapidinho",
+        imagem: "assets/images/presente-11.svg",
+        linkExterno: null
+      },
+      {
+        id: "guardanapos",
+        nome: "Guardanapos",
         descricao: "Detalhes que fazem a diferença na mesa",
-        valor: 190.00,
-        imagem: "assets/images/presente-05.svg",
+        imagem: "assets/images/presente-12.svg",
+        linkExterno: null
+      },
+      {
+        id: "formas-bolo",
+        nome: "Formas de Bolo",
+        descricao: "Pros bolos e doces caseiros",
+        imagem: "assets/images/presente-13.svg",
+        linkExterno: null
+      },
+      {
+        id: "jogo-sobremesa",
+        nome: "Jogo de Sobremesa",
+        descricao: "Pra servir a sobremesa com estilo",
+        imagem: "assets/images/presente-14.svg",
         linkExterno: null
       },
       {
         id: "escorredor-louca",
         nome: "Escorredor de Louça",
         descricao: "Praticidade pro dia a dia na pia",
-        valor: 150.00,
         imagem: "assets/images/presente-06.svg",
+        linkExterno: null
+      },
+      {
+        id: "talheres",
+        nome: "Talheres",
+        descricao: "Pra completar a mesa posta",
+        imagem: "assets/images/presente-05.svg",
+        linkExterno: null
+      },
+      {
+        id: "liquidificador",
+        nome: "Liquidificador",
+        descricao: "Um clássico que nunca pode faltar",
+        imagem: "assets/images/presente-04.svg",
+        linkExterno: null
+      },
+      {
+        id: "batedeira",
+        nome: "Batedeira",
+        descricao: "Pra ajudar nas receitas do dia a dia",
+        imagem: "assets/images/presente-15.svg",
+        linkExterno: null
+      },
+      {
+        id: "travessas",
+        nome: "Travessas",
+        descricao: "Pra servir com charme nas ocasiões especiais",
+        imagem: "assets/images/presente-16.svg",
         linkExterno: null
       }
     ]

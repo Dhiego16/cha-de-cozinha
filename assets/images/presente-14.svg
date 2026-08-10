@@ -1,0 +1,11 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+  <rect width="64" height="64" fill="#14140f"/>
+  <g fill="none" stroke="#c9a868" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 26h28a14 14 0 0 1-28 0z"/>
+    <line x1="12" y1="26" x2="44" y2="26"/>
+    <line x1="28" y1="26" x2="28" y2="46"/>
+    <line x1="20" y1="50" x2="36" y2="50"/>
+    <line x1="46" y1="12" x2="46" y2="34"/>
+    <ellipse cx="46" cy="10" rx="3.2" ry="4.4"/>
+  </g>
+</svg>
