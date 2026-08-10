@@ -259,7 +259,11 @@ const CONVITE_CONFIG = {
     subtitulo: "Ajude a gente a organizar tudo com carinho — confirme se vai poder vir!",
     // Número com DDI + DDD, só números (ex: Brasil, DDD 62): "5562999999999"
     // Sem isso preenchido, o botão de confirmar fica desativado.
-    whatsapp: "62994415344"
+<<<<<<< HEAD
+    whatsapp: "5562994415344"
+=======
+    whatsapp: "5562994415344"
+>>>>>>> c2bd0060bfab4f898006c5ca19db6020127e5a91
   },
 
   /* ---------------------------------------------------------------------

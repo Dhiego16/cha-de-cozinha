@@ -19,7 +19,7 @@ mesmo visual, tipografia e animações — só trocando o conteúdo.
    mesmos nomes de arquivo (ou ajuste os caminhos no `config.js`).
    - **Os arquivos atuais são placeholders** (marca d'água "SUBSTITUA..."):
      `hero.jpg`, `galeria-01.jpg` a `galeria-06.jpg` e `share-preview.jpg`.
-   - Os ícones `presente-01.svg` a `presente-06.svg` são ícones simples
+   - Os ícones `presente-01.svg` a `presente-16.svg` são ícones simples
      gerados pra representar os itens padrão da lista — pode trocar por
      fotos reais dos produtos se preferir.
    - Recomendado: fotos `.jpg` otimizadas, hero em pelo menos 1600×1000px.
@@ -139,7 +139,7 @@ longitude nem de chave de API. Só editar o endereço nesse campo.
 - [ ] Conferir `evento.dataISO`, `evento.dataFormatada` e
       `cerimonia.data`/`horario` — precisam bater entre si.
 - [ ] Preencher `cerimonia.local`, `endereco` e `mapaQuery` com o endereço real.
-- [ ] Revisar os itens da lista de presentes (nomes, valores, imagens).
+- [ ] Revisar os itens da lista de presentes (nomes, imagens).
 - [ ] Preencher `config.js > firebase` com os dados do seu projeto Firebase (veja seção "Configurando o Firebase" abaixo) para a reserva funcionar.
 - [ ] Preencher `config.js > confirmacaoPresenca.whatsapp` com o número
       (DDI + DDD + número, só dígitos, ex: `"5562999999999"`) para o botão
