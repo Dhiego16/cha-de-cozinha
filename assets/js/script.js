@@ -269,9 +269,18 @@
     if (link && dados.linkMaps) link.setAttribute("href", dados.linkMaps);
 
     const mapEl = $(`#${prefixo}-map`);
-    if (mapEl && dados.mapaQuery) {
-      const src = `https://maps.google.com/maps?q=${encodeURIComponent(dados.mapaQuery)}&output=embed`;
-      mapEl.innerHTML = `<iframe src="${src}" loading="lazy" title="Mapa - ${dados.local || ''}"></iframe>`;
+    if (mapEl) {
+      // Prioriza latitude/longitude exatas (pino preciso). Se não houver,
+      // cai para busca por texto (mapaQuery).
+      let src = null;
+      if (dados.latitude != null && dados.longitude != null) {
+        src = `https://maps.google.com/maps?q=${dados.latitude},${dados.longitude}&z=17&output=embed`;
+      } else if (dados.mapaQuery) {
+        src = `https://maps.google.com/maps?q=${encodeURIComponent(dados.mapaQuery)}&output=embed`;
+      }
+      if (src) {
+        mapEl.innerHTML = `<iframe src="${src}" loading="lazy" title="Mapa - ${dados.local || ''}"></iframe>`;
+      }
     }
   }
   function initLocais() {

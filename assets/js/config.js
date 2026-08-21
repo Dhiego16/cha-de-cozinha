@@ -64,15 +64,17 @@ const CONVITE_CONFIG = {
   --------------------------------------------------------------------- */
   cerimonia: {
     titulo: "Chá de Cozinha",
-    local: "Espaço Jardim Flor de Lis",
-    endereco: "Av. Perimetral, Qd. 12, Lt. 05, Setor Central, Senador Canedo - GO",
+    local: "Espaço Veneza",
+    endereco: "Espaço Veneza, Goiânia - GO",
     data: "13 de Dezembro de 2026",
     horario: "15h",
-    linkMaps: "https://maps.google.com/?q=Espaco+Jardim+Flor+de+Lis+Senador+Canedo",
-    // Mapa embutido por busca de endereço (sem API key, sem precisar de
-    // latitude/longitude na mão — o Google localiza a partir do texto
-    // abaixo). Se quiser trocar o local, só editar essa linha.
-    mapaQuery: "Espaço Jardim Flor de Lis, Av. Perimetral, Setor Central, Senador Canedo - GO"
+    // Coordenadas exatas do local (pino preciso no mapa, sem depender de
+    // busca por texto).
+    latitude: -16.6737783,
+    longitude: -49.1364499,
+    linkMaps: "https://www.google.com/maps/place/Espa%C3%A7o+Veneza/@-16.6737783,-49.1364499,17z",
+    // Usado só como reserva caso latitude/longitude não estejam definidas.
+    mapaQuery: "Espaço Veneza"
   },
 
   /* ---------------------------------------------------------------------
