@@ -60,30 +60,6 @@ const CONVITE_CONFIG = {
   },
 
   /* ---------------------------------------------------------------------
-     5. MENSAGEM DE ABERTURA
-  --------------------------------------------------------------------- */
-  mensagemAbertura: {
-    titulo: "Vem comemorar com a gente",
-    texto: "Estamos montando a nossa nova casinha e nada nos deixaria mais feliz do que ter você por perto nesse momento tão especial. Vem tomar um chazinho e comemorar com a gente!"
-  },
-
-  /* ---------------------------------------------------------------------
-     6. GALERIA DE FOTOS
-  --------------------------------------------------------------------- */
-  galeria: {
-    titulo: "Galeria",
-    subtitulo: "Momentos que guardamos com carinho",
-    fotos: [
-      { src: "assets/images/galeria-01.jpg" },
-      { src: "assets/images/galeria-02.jpg" },
-      { src: "assets/images/galeria-03.jpg" },
-      { src: "assets/images/galeria-04.jpg" },
-      { src: "assets/images/galeria-05.jpg" },
-      { src: "assets/images/galeria-06.jpg" }
-    ]
-  },
-
-  /* ---------------------------------------------------------------------
      7. LOCAL DO EVENTO
   --------------------------------------------------------------------- */
   cerimonia: {

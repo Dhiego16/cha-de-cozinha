@@ -152,17 +152,6 @@
   }
 
   /* -----------------------------------------------------------------------
-     6. MENSAGEM DE ABERTURA
-  ----------------------------------------------------------------------- */
-  function initMensagem() {
-    const m = cfg.mensagemAbertura || {};
-    const titulo = $("#mensagem-titulo");
-    const texto = $("#mensagem-texto");
-    if (titulo && m.titulo) titulo.textContent = m.titulo;
-    if (texto && m.texto) texto.textContent = m.texto;
-  }
-
-  /* -----------------------------------------------------------------------
      7. CONTAGEM REGRESSIVA
   ----------------------------------------------------------------------- */
   function initCountdown() {
@@ -262,78 +251,6 @@
       document.body.removeChild(link);
       setTimeout(() => URL.revokeObjectURL(url), 4000);
     });
-  }
-
-  /* -----------------------------------------------------------------------
-     9. GALERIA + LIGHTBOX
-  ----------------------------------------------------------------------- */
-  function initGaleria() {
-    const g = cfg.galeria || {};
-    const titulo = $("#galeria-titulo");
-    const subtitulo = $("#galeria-subtitulo");
-    if (titulo && g.titulo) titulo.textContent = g.titulo;
-    if (subtitulo && g.subtitulo) subtitulo.textContent = g.subtitulo;
-
-    const grid = $("#gallery-grid");
-    const fotos = Array.isArray(g.fotos) ? g.fotos : [];
-    if (!grid) return;
-
-    grid.innerHTML = fotos.map((f, i) => `
-      <figure class="gallery-item" data-aos="zoom-in" data-aos-delay="${(i % 3) * 80}" data-index="${i}">
-        <img src="${f.src}" alt="${f.legenda || ''}" loading="lazy">
-        <figcaption class="gallery-caption">${f.legenda || ''}</figcaption>
-      </figure>
-    `).join("");
-
-    // Lightbox
-    const lightbox = $("#lightbox");
-    const imgEl = $("#lightbox-img");
-    const capEl = $("#lightbox-caption");
-    let currentIndex = 0;
-
-    function openLightbox(index) {
-      currentIndex = index;
-      const foto = fotos[currentIndex];
-      if (!foto) return;
-      imgEl.src = foto.src;
-      imgEl.alt = foto.legenda || "";
-      capEl.textContent = foto.legenda || "";
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-    function closeLightbox() {
-      lightbox.classList.remove("open");
-      lightbox.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-    function showRelative(delta) {
-      currentIndex = (currentIndex + delta + fotos.length) % fotos.length;
-      openLightbox(currentIndex);
-    }
-
-    $$(".gallery-item", grid).forEach((item) => {
-      item.addEventListener("click", () => openLightbox(Number(item.dataset.index)));
-    });
-    $("#lightbox-close")?.addEventListener("click", closeLightbox);
-    $("#lightbox-prev")?.addEventListener("click", () => showRelative(-1));
-    $("#lightbox-next")?.addEventListener("click", () => showRelative(1));
-    lightbox?.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
-
-    document.addEventListener("keydown", (e) => {
-      if (!lightbox.classList.contains("open")) return;
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") showRelative(-1);
-      if (e.key === "ArrowRight") showRelative(1);
-    });
-
-    // Swipe (touch) no lightbox
-    let touchStartX = 0;
-    lightbox?.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-    lightbox?.addEventListener("touchend", (e) => {
-      const dx = e.changedTouches[0].screenX - touchStartX;
-      if (Math.abs(dx) > 50) showRelative(dx > 0 ? -1 : 1);
-    }, { passive: true });
   }
 
   /* -----------------------------------------------------------------------
@@ -722,10 +639,8 @@
     initLoading();
     initCursor();
     initHero();
-    initMensagem();
     initCountdown();
     initAddToCalendar();
-    initGaleria();
     initLocais();
     initFirebase();
     initConfirmacaoPresenca();
