@@ -91,112 +91,112 @@ const CONVITE_CONFIG = {
         id: "jogo-cama",
         nome: "Jogo de Cama",
         descricao: "Pra deixar o quarto ainda mais aconchegante",
-        imagem: "assets/images/presente-07.svg",
+        imagem: "assets/images/jogo-cama.png",
         linkExterno: null
       },
       {
         id: "jogo-copos",
         nome: "Jogo de Copos",
         descricao: "Para os cafés e sucos do dia a dia",
-        imagem: "assets/images/presente-02.svg",
+        imagem: "assets/images/jogo-copos.png",
         linkExterno: null
       },
       {
         id: "jogo-pratos",
         nome: "Jogo de Pratos",
         descricao: "Louças para as refeições em família",
-        imagem: "assets/images/presente-03.svg",
+        imagem: "assets/images/jogo-pratos.png",
         linkExterno: null
       },
       {
         id: "jogo-tacas",
         nome: "Jogo de Taças",
         descricao: "Pra brindar os bons momentos",
-        imagem: "assets/images/presente-08.svg",
+        imagem: "assets/images/jogo-tacas.png",
         linkExterno: null
       },
       {
         id: "jogo-xicaras",
         nome: "Jogo de Xícaras",
         descricao: "Pro cafezinho e chá de todo dia",
-        imagem: "assets/images/presente-09.svg",
+        imagem: "assets/images/jogo-xicaras.png",
         linkExterno: null
       },
       {
         id: "conjunto-panelas",
         nome: "Conjunto de Panelas",
         descricao: "Ajude a equipar a nova cozinha",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/conjunto-panelas.png",
         linkExterno: null
       },
       {
         id: "potes-hermeticos",
         nome: "Potes Herméticos",
         descricao: "Praticidade pra organizar a despensa",
-        imagem: "assets/images/presente-10.svg",
+        imagem: "assets/images/potes-hermeticos.png",
         linkExterno: null
       },
       {
         id: "panela-pressao",
         nome: "Panela de Pressão",
         descricao: "Pra deixar o feijão pronto rapidinho",
-        imagem: "assets/images/presente-11.svg",
+        imagem: "assets/images/panela-pressao.png",
         linkExterno: null
       },
       {
         id: "guardanapos",
         nome: "Guardanapos",
         descricao: "Detalhes que fazem a diferença na mesa",
-        imagem: "assets/images/presente-12.svg",
+        imagem: "assets/images/guardanapos.png",
         linkExterno: null
       },
       {
         id: "formas-bolo",
         nome: "Formas de Bolo",
         descricao: "Pros bolos e doces caseiros",
-        imagem: "assets/images/presente-13.svg",
+        imagem: "assets/images/formas-bolo.png",
         linkExterno: null
       },
       {
         id: "jogo-sobremesa",
         nome: "Jogo de Sobremesa",
         descricao: "Pra servir a sobremesa com estilo",
-        imagem: "assets/images/presente-14.svg",
+        imagem: "assets/images/jogo-sobremesa.png",
         linkExterno: null
       },
       {
         id: "escorredor-louca",
         nome: "Escorredor de Louça",
         descricao: "Praticidade pro dia a dia na pia",
-        imagem: "assets/images/presente-06.svg",
+        imagem: "assets/images/escorredor-louca.png",
         linkExterno: null
       },
       {
         id: "talheres",
         nome: "Talheres",
         descricao: "Pra completar a mesa posta",
-        imagem: "assets/images/presente-05.svg",
+        imagem: "assets/images/talheres.png",
         linkExterno: null
       },
       {
         id: "liquidificador",
         nome: "Liquidificador",
         descricao: "Um clássico que nunca pode faltar",
-        imagem: "assets/images/presente-04.svg",
+        imagem: "assets/images/liquidificador.png",
         linkExterno: null
       },
       {
         id: "batedeira",
         nome: "Batedeira",
         descricao: "Pra ajudar nas receitas do dia a dia",
-        imagem: "assets/images/presente-15.svg",
+        imagem: "assets/images/batedeira.png",
         linkExterno: null
       },
       {
         id: "travessas",
         nome: "Travessas",
         descricao: "Pra servir com charme nas ocasiões especiais",
-        imagem: "assets/images/presente-16.svg",
+        imagem: "assets/images/travessas.png",
         linkExterno: null
       }
     ]
