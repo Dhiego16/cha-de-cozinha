@@ -53,10 +53,10 @@ const CONVITE_CONFIG = {
      Formato ISO 8601 — usado pela contagem regressiva.
   --------------------------------------------------------------------- */
   evento: {
-    dataISO: "2026-12-13T15:00:00",
-    dataFormatada: "13 de Dezembro de 2026",
+    dataISO: "2026-09-06T12:00:00",
+    dataFormatada: "06 de Setembro de 2026",
     diaSemana: "Domingo",
-    horario: "15h00"
+    horario: "12h00"
   },
 
   /* ---------------------------------------------------------------------
@@ -66,8 +66,8 @@ const CONVITE_CONFIG = {
     titulo: "Chá de Cozinha",
     local: "Espaço Veneza",
     endereco: "Espaço Veneza, Goiânia - GO",
-    data: "13 de Dezembro de 2026",
-    horario: "15h",
+    data: "06 de Setembro de 2026",
+    horario: "12h",
     // Coordenadas exatas do local (pino preciso no mapa, sem depender de
     // busca por texto).
     latitude: -16.6737783,
@@ -268,7 +268,7 @@ const CONVITE_CONFIG = {
     // Ou seja: se mudar titulo/descricao aqui, troque também as mesmas
     // tags no <head> do index.html, senão o preview do link continua
     // mostrando o texto genérico antigo.
-    titulo: "Chá de Cozinha de Ana e Maicon | 13 de Dezembro de 2026",
+    titulo: "Chá de Cozinha de Ana e Maicon | 06 de Setembro de 2026",
     descricao: "Você está convidado para o chá de cozinha de Ana e Maicon.",
     imagemPreview: "assets/images/share-preview.jpg",
     urlSite: "https://chadacozinha-marina.vercel.app"
