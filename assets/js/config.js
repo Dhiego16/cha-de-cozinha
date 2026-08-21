@@ -91,56 +91,56 @@ const CONVITE_CONFIG = {
         id: "jogo-cama",
         nome: "Jogo de Cama",
         descricao: "Pra deixar o quarto ainda mais aconchegante",
-        imagem: "assets/images/jogo-cama.png",
+        imagem: "assets/images/jogodecama.png",
         linkExterno: null
       },
       {
         id: "jogo-copos",
         nome: "Jogo de Copos",
         descricao: "Para os cafés e sucos do dia a dia",
-        imagem: "assets/images/jogo-copos.png",
+        imagem: "assets/images/jogodecopo.png",
         linkExterno: null
       },
       {
         id: "jogo-pratos",
         nome: "Jogo de Pratos",
         descricao: "Louças para as refeições em família",
-        imagem: "assets/images/jogo-pratos.png",
+        imagem: "assets/images/jogodeprato.png",
         linkExterno: null
       },
       {
         id: "jogo-tacas",
         nome: "Jogo de Taças",
         descricao: "Pra brindar os bons momentos",
-        imagem: "assets/images/jogo-tacas.png",
+        imagem: "assets/images/jogodetaca.png",
         linkExterno: null
       },
       {
         id: "jogo-xicaras",
         nome: "Jogo de Xícaras",
         descricao: "Pro cafezinho e chá de todo dia",
-        imagem: "assets/images/jogo-xicaras.png",
+        imagem: "assets/images/jogodexicara.png",
         linkExterno: null
       },
       {
         id: "conjunto-panelas",
         nome: "Conjunto de Panelas",
         descricao: "Ajude a equipar a nova cozinha",
-        imagem: "assets/images/conjunto-panelas.png",
+        imagem: "assets/images/conjuntodepanela.png",
         linkExterno: null
       },
       {
         id: "potes-hermeticos",
         nome: "Potes Herméticos",
         descricao: "Praticidade pra organizar a despensa",
-        imagem: "assets/images/potes-hermeticos.png",
+        imagem: "assets/images/poteshermeticos.png",
         linkExterno: null
       },
       {
         id: "panela-pressao",
         nome: "Panela de Pressão",
         descricao: "Pra deixar o feijão pronto rapidinho",
-        imagem: "assets/images/panela-pressao.png",
+        imagem: "assets/images/paneladepressao.png",
         linkExterno: null
       },
       {
@@ -154,21 +154,21 @@ const CONVITE_CONFIG = {
         id: "formas-bolo",
         nome: "Formas de Bolo",
         descricao: "Pros bolos e doces caseiros",
-        imagem: "assets/images/formas-bolo.png",
+        imagem: "assets/images/formasdebolo.png",
         linkExterno: null
       },
       {
         id: "jogo-sobremesa",
         nome: "Jogo de Sobremesa",
         descricao: "Pra servir a sobremesa com estilo",
-        imagem: "assets/images/jogo-sobremesa.png",
+        imagem: "assets/images/jogodesobremessa.png",
         linkExterno: null
       },
       {
         id: "escorredor-louca",
         nome: "Escorredor de Louça",
         descricao: "Praticidade pro dia a dia na pia",
-        imagem: "assets/images/escorredor-louca.png",
+        imagem: "assets/images/escorredor.png",
         linkExterno: null
       },
       {
