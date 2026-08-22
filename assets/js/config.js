@@ -239,7 +239,7 @@ const CONVITE_CONFIG = {
         id: "frigideira",
         nome: "Frigideira",
         descricao: "Pra fritar e refogar no dia a dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/frigideira.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -247,7 +247,7 @@ const CONVITE_CONFIG = {
         id: "sanduicheira",
         nome: "Sanduicheira",
         descricao: "Pros lanches rápidos do dia a dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/sanduicheira.png",
         categoria: "eletrodomesticos",
         linkExterno: null
       },
@@ -255,7 +255,7 @@ const CONVITE_CONFIG = {
         id: "assadeira",
         nome: "Assadeira",
         descricao: "Pra deixar as receitas assadas sempre no ponto",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/assadeira.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -263,7 +263,7 @@ const CONVITE_CONFIG = {
         id: "kit-panos-prato",
         nome: "Kit de Pano de Prato",
         descricao: "Pra manter a cozinha sempre em ordem",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/kit-panos-prato.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -271,7 +271,7 @@ const CONVITE_CONFIG = {
         id: "toalha-mesa",
         nome: "Toalha de Mesa",
         descricao: "Pra deixar a mesa ainda mais bonita",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/toalha-mesa.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -279,7 +279,7 @@ const CONVITE_CONFIG = {
         id: "chaleira-eletrica",
         nome: "Chaleira Elétrica",
         descricao: "Pra esquentar água rapidinho",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/chaleira-eletrica.png",
         categoria: "eletrodomesticos",
         linkExterno: null
       },
@@ -287,7 +287,7 @@ const CONVITE_CONFIG = {
         id: "conchas",
         nome: "Conchas",
         descricao: "Pra servir sopas e caldos com praticidade",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/conchas.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -295,7 +295,7 @@ const CONVITE_CONFIG = {
         id: "kit-cortina",
         nome: "Kit de Cortina",
         descricao: "Pra deixar a casa nova com a nossa cara",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/kit-cortina.png",
         categoria: "sala",
         linkExterno: null
       },
@@ -303,7 +303,7 @@ const CONVITE_CONFIG = {
         id: "cesto-roupas",
         nome: "Cesto para Roupas",
         descricao: "Pra organizar as roupas do dia a dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/cesto-roupas.png",
         categoria: "banheiro",
         linkExterno: null
       },
@@ -311,7 +311,7 @@ const CONVITE_CONFIG = {
         id: "toalhas-banho",
         nome: "Toalhas de Banho",
         descricao: "Pra deixar o banho ainda mais aconchegante",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/toalhas-banho.png",
         categoria: "banheiro",
         linkExterno: null
       },
@@ -319,7 +319,7 @@ const CONVITE_CONFIG = {
         id: "toalhas-rosto",
         nome: "Toalhas de Rosto",
         descricao: "Pra completar o kit do banheiro novo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/toalhas-rosto.png",
         categoria: "banheiro",
         linkExterno: null
       },
@@ -327,7 +327,7 @@ const CONVITE_CONFIG = {
         id: "boleiras",
         nome: "Boleiras",
         descricao: "Pra servir os bolos com estilo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/boleiras.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -335,7 +335,7 @@ const CONVITE_CONFIG = {
         id: "jogo-facas",
         nome: "Jogo de Facas",
         descricao: "Pra cortar e preparar com precisão",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/jogo-facas.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -343,7 +343,7 @@ const CONVITE_CONFIG = {
         id: "air-fryer",
         nome: "Air Fryer",
         descricao: "Pra fritar sem óleo no dia a dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/air-fryer.png",
         categoria: "eletrodomesticos",
         linkExterno: null
       },
@@ -351,7 +351,7 @@ const CONVITE_CONFIG = {
         id: "fogao-cooktop",
         nome: "Fogão Cooktop",
         descricao: "Pra equipar a cozinha nova com estilo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/fogao-cooktop.png",
         categoria: "eletrodomesticos",
         linkExterno: null
       },
@@ -359,7 +359,7 @@ const CONVITE_CONFIG = {
         id: "potinhos-temperos",
         nome: "Potinhos de Temperos",
         descricao: "Pra organizar os temperos com praticidade",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/potinhos-temperos.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -367,7 +367,7 @@ const CONVITE_CONFIG = {
         id: "cuscuzeira",
         nome: "Cuscuzeira",
         descricao: "Pra não faltar cuscuz no café da manhã",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/cuscuzeira.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -375,7 +375,7 @@ const CONVITE_CONFIG = {
         id: "escorredor-macarrao",
         nome: "Escorredor de Macarrão",
         descricao: "Pra ajudar no preparo das massas",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/escorredor-macarrao.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -383,7 +383,7 @@ const CONVITE_CONFIG = {
         id: "ferro-passar",
         nome: "Ferro de Passar",
         descricao: "Pra deixar as roupas sempre em ordem",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/ferro-passar.png",
         categoria: "eletrodomesticos",
         linkExterno: null
       },
@@ -391,7 +391,7 @@ const CONVITE_CONFIG = {
         id: "jarras-suco",
         nome: "Jarras de Suco",
         descricao: "Pra servir os sucos do dia a dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/jarras-suco.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -399,7 +399,7 @@ const CONVITE_CONFIG = {
         id: "jogo-americanos",
         nome: "Jogo Americanos",
         descricao: "Pra deixar a mesa com mais estilo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/jogo-americanos.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -407,7 +407,7 @@ const CONVITE_CONFIG = {
         id: "jogo-pratos-fundos",
         nome: "Jogo de Pratos Fundos",
         descricao: "Pra sopas, caldos e massas",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/jogo-pratos-fundos.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -415,7 +415,7 @@ const CONVITE_CONFIG = {
         id: "kit-colheres-silicone",
         nome: "Kit Colheres de Silicone",
         descricao: "Pra não riscar as panelas no preparo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/kit-colheres-silicone.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -423,7 +423,7 @@ const CONVITE_CONFIG = {
         id: "pipoqueira",
         nome: "Pipoqueira",
         descricao: "Pra pipoca fresquinha no dia a dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/pipoqueira.png",
         categoria: "eletrodomesticos",
         linkExterno: null
       },
@@ -431,7 +431,7 @@ const CONVITE_CONFIG = {
         id: "fruteira",
         nome: "Fruteira",
         descricao: "Pra deixar as frutas sempre à mão",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/fruteira.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -439,7 +439,7 @@ const CONVITE_CONFIG = {
         id: "taca-espumante",
         nome: "Jogo de Taça para Espumante",
         descricao: "Pra brindar as ocasiões especiais",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/taca-espumante.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -447,7 +447,7 @@ const CONVITE_CONFIG = {
         id: "taca-vinho",
         nome: "Jogo de Taça para Vinho",
         descricao: "Pra harmonizar os jantares em casa",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/taca-vinho.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -455,7 +455,7 @@ const CONVITE_CONFIG = {
         id: "taca-gin",
         nome: "Jogo de Taça para Gin",
         descricao: "Pra receber os amigos com estilo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/taca-gin.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -463,7 +463,7 @@ const CONVITE_CONFIG = {
         id: "jogo-xicara-pires",
         nome: "Jogo de Xícara com Pires",
         descricao: "Pro cafezinho servido com charme",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/jogo-xicara-pires.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -471,7 +471,7 @@ const CONVITE_CONFIG = {
         id: "ventilador",
         nome: "Ventilador",
         descricao: "Pra deixar a casa nova mais fresquinha",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/ventilador.png",
         categoria: "sala",
         linkExterno: null
       },
@@ -479,7 +479,7 @@ const CONVITE_CONFIG = {
         id: "jogo-fronhas",
         nome: "Jogo de Fronhas para Travesseiros",
         descricao: "Pra completar o enxoval do quarto",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/jogo-fronhas.png",
         categoria: "quarto",
         linkExterno: null
       },
@@ -487,7 +487,7 @@ const CONVITE_CONFIG = {
         id: "jogo-pratos-rasos",
         nome: "Jogo de Pratos Rasos",
         descricao: "Pras refeições do dia a dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/jogo-pratos-rasos.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -495,7 +495,7 @@ const CONVITE_CONFIG = {
         id: "jogo-pratos-sobremesa",
         nome: "Jogo de Pratos Sobremesa",
         descricao: "Pra sobremesa servida com estilo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/jogo-pratos-sobremesa.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -503,7 +503,7 @@ const CONVITE_CONFIG = {
         id: "colheres-sobremesa",
         nome: "Colheres de Sobremesa",
         descricao: "Pra completar a mesa posta",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/colheres-sobremesa.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -511,7 +511,7 @@ const CONVITE_CONFIG = {
         id: "organizador-geladeira",
         nome: "Organizador de Geladeira",
         descricao: "Pra manter a geladeira sempre organizada",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/organizador-geladeira.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -519,7 +519,7 @@ const CONVITE_CONFIG = {
         id: "manteigueira",
         nome: "Manteigueira",
         descricao: "Pra manter a manteiga sempre à mão",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/manteigueira.png",
         categoria: "mesa",
         linkExterno: null
       },
@@ -527,7 +527,7 @@ const CONVITE_CONFIG = {
         id: "vale-presente-casa",
         nome: "Vale-Presente para Casa/Construção",
         descricao: "Pra ajudar a construir e equipar o novo lar",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/vale-presente-casa.png",
         categoria: "vale-presente",
         linkExterno: null
       },
@@ -535,7 +535,7 @@ const CONVITE_CONFIG = {
         id: "vale-presente-lua-de-mel",
         nome: "Vale-Presente Lua de Mel",
         descricao: "Pra ajudar a gente a curtir a viagem dos sonhos",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/vale-presente-lua-de-mel.png",
         categoria: "vale-presente",
         linkExterno: null
       }
