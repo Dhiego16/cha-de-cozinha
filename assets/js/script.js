@@ -313,9 +313,15 @@
     if (titulo && p.titulo) titulo.textContent = p.titulo;
     if (subtitulo && p.subtitulo) subtitulo.textContent = p.subtitulo;
 
-    const grid = $("#gifts-grid");
+    const container = $("#gifts-container");
     const itens = Array.isArray(p.itens) ? p.itens : [];
-    if (!grid) return;
+    if (!container) return;
+
+    // Categorias configuradas em config.js. Se não houver nenhuma
+    // definida, cai num fallback de categoria única (compatibilidade).
+    const categoriasConfig = Array.isArray(p.categorias) && p.categorias.length
+      ? p.categorias
+      : [{ id: "__todos", nome: p.titulo || "Presentes", icone: "" }];
 
     // --- toast reutilizado pra avisos ("reservado!", "já foi reservado", etc.) ---
     const toast = $("#toast");
@@ -343,7 +349,8 @@
       return `<button type="button" class="gift-btn" data-reservar-btn data-id="${item.id}">Reservar</button>`;
     }
 
-    grid.innerHTML = itens.map((item, i) => `
+    function cardHtml(item, i) {
+      return `
       <article class="gift-card" data-aos="fade-up" data-aos-delay="${(i % 3) * 90}" data-item-id="${item.id}">
         <div class="gift-image"><img src="${item.imagem}" alt="${item.nome}" loading="lazy"></div>
         <div class="gift-body">
@@ -353,12 +360,49 @@
             ${botaoHtml(item, "carregando")}
           </div>
         </div>
-      </article>
-    `).join("");
+      </article>`;
+    }
+
+    // --- agrupa os itens por categoria, respeitando a ordem configurada ---
+    // Itens cuja "categoria" não bate com nenhuma cadastrada caem na
+    // última seção existente (ou geram uma seção "Outros presentes").
+    const porCategoria = new Map(categoriasConfig.map((c) => [c.id, []]));
+    let categoriaOutros = null;
+    itens.forEach((item) => {
+      const catId = categoriasConfig.some((c) => c.id === item.categoria) ? item.categoria : null;
+      if (catId) {
+        porCategoria.get(catId).push(item);
+      } else {
+        if (!categoriaOutros) {
+          categoriaOutros = { id: "__outros", nome: "Outros Presentes", icone: "🎁" };
+          porCategoria.set(categoriaOutros.id, []);
+        }
+        porCategoria.get(categoriaOutros.id).push(item);
+      }
+    });
+
+    const secoes = [...categoriasConfig, ...(categoriaOutros ? [categoriaOutros] : [])]
+      .filter((cat) => porCategoria.get(cat.id).length > 0);
+
+    let contadorGlobal = 0;
+    container.innerHTML = secoes.map((cat) => {
+      const itensCategoria = porCategoria.get(cat.id);
+      const cardsHtml = itensCategoria.map((item) => cardHtml(item, contadorGlobal++)).join("");
+      const mostrarTitulo = cat.id !== "__todos";
+      return `
+        <div class="gifts-category" data-categoria="${cat.id}">
+          ${mostrarTitulo ? `
+          <h3 class="gifts-category-title" data-aos="fade-up">
+            ${cat.icone ? `<span class="gifts-category-icon">${cat.icone}</span>` : ""}${cat.nome}
+          </h3>` : ""}
+          <div class="gifts-grid">${cardsHtml}</div>
+        </div>
+      `;
+    }).join("");
 
     // --- atualiza um card específico conforme o estado de reserva ---
     function aplicarEstado(item, reserva) {
-      const card = grid.querySelector(`[data-item-id="${item.id}"]`);
+      const card = container.querySelector(`[data-item-id="${item.id}"]`);
       if (!card) return;
       const footer = card.querySelector(".gift-footer");
       card.classList.toggle("gift-card--reservado", !!reserva);
@@ -381,7 +425,7 @@
     // --- Firebase indisponível/não configurado: mostra tudo como indisponível ---
     if (!window.firebaseDb) {
       itens.forEach((item) => {
-        const card = grid.querySelector(`[data-item-id="${item.id}"]`);
+        const card = container.querySelector(`[data-item-id="${item.id}"]`);
         const footer = card?.querySelector(".gift-footer");
         if (footer && !item.linkExterno) {
           footer.innerHTML = `
