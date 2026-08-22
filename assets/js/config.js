@@ -361,6 +361,126 @@ const CONVITE_CONFIG = {
         imagem: "assets/images/presente-01.svg",
         categoria: "cozinha",
         linkExterno: null
+      },
+      {
+        id: "cuscuzeira",
+        nome: "Cuscuzeira",
+        descricao: "Pra não faltar cuscuz no café da manhã",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "escorredor-macarrao",
+        nome: "Escorredor de Macarrão",
+        descricao: "Pra ajudar no preparo das massas",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "ferro-passar",
+        nome: "Ferro de Passar",
+        descricao: "Pra deixar as roupas sempre em ordem",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "jarras-suco",
+        nome: "Jarras de Suco",
+        descricao: "Pra servir os sucos do dia a dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "jogo-americanos",
+        nome: "Jogo Americanos",
+        descricao: "Pra deixar a mesa com mais estilo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "jogo-pratos-fundos",
+        nome: "Jogo de Pratos Fundos",
+        descricao: "Pra sopas, caldos e massas",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "kit-colheres-silicone",
+        nome: "Kit Colheres de Silicone",
+        descricao: "Pra não riscar as panelas no preparo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "pipoqueira",
+        nome: "Pipoqueira",
+        descricao: "Pra pipoca fresquinha no dia a dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "fruteira",
+        nome: "Fruteira",
+        descricao: "Pra deixar as frutas sempre à mão",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "taca-espumante",
+        nome: "Jogo de Taça para Espumante",
+        descricao: "Pra brindar as ocasiões especiais",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "taca-vinho",
+        nome: "Jogo de Taça para Vinho",
+        descricao: "Pra harmonizar os jantares em casa",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "taca-gin",
+        nome: "Jogo de Taça para Gin",
+        descricao: "Pra receber os amigos com estilo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "jogo-xicara-pires",
+        nome: "Jogo de Xícara com Pires",
+        descricao: "Pro cafezinho servido com charme",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "ventilador",
+        nome: "Ventilador",
+        descricao: "Pra deixar a casa nova mais fresquinha",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "sala",
+        linkExterno: null
+      },
+      {
+        id: "jogo-fronhas",
+        nome: "Jogo de Fronhas para Travesseiros",
+        descricao: "Pra completar o enxoval do quarto",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "quarto",
+        linkExterno: null
       }
     ]
   },
