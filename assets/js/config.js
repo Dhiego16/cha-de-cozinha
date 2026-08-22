@@ -95,7 +95,8 @@ const CONVITE_CONFIG = {
       { id: "quarto", nome: "Quarto", icone: "🛏️" },
       { id: "banheiro", nome: "Banheiro", icone: "🚿" },
       { id: "sala", nome: "Sala", icone: "🛋️" },
-      { id: "limpeza", nome: "Limpeza", icone: "🧹" }
+      { id: "limpeza", nome: "Limpeza", icone: "🧹" },
+      { id: "vale-presente", nome: "Vale-Presente", icone: "🎁" }
     ],
 
     itens: [
@@ -480,6 +481,62 @@ const CONVITE_CONFIG = {
         descricao: "Pra completar o enxoval do quarto",
         imagem: "assets/images/presente-01.svg",
         categoria: "quarto",
+        linkExterno: null
+      },
+      {
+        id: "jogo-pratos-rasos",
+        nome: "Jogo de Pratos Rasos",
+        descricao: "Pras refeições do dia a dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "jogo-pratos-sobremesa",
+        nome: "Jogo de Pratos Sobremesa",
+        descricao: "Pra sobremesa servida com estilo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "colheres-sobremesa",
+        nome: "Colheres de Sobremesa",
+        descricao: "Pra completar a mesa posta",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "organizador-geladeira",
+        nome: "Organizador de Geladeira",
+        descricao: "Pra manter a geladeira sempre organizada",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "manteigueira",
+        nome: "Manteigueira",
+        descricao: "Pra manter a manteiga sempre à mão",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "vale-presente-casa",
+        nome: "Vale-Presente para Casa/Construção",
+        descricao: "Pra ajudar a construir e equipar o novo lar",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "vale-presente",
+        linkExterno: null
+      },
+      {
+        id: "vale-presente-lua-de-mel",
+        nome: "Vale-Presente Lua de Mel",
+        descricao: "Pra ajudar a gente a curtir a viagem dos sonhos",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "vale-presente",
         linkExterno: null
       }
     ]
