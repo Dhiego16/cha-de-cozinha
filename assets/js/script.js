@@ -400,6 +400,38 @@
       `;
     }).join("");
 
+    // --- chips de filtro por categoria (só faz sentido com 2+ seções) ---
+    const filtersEl = $("#gifts-filters");
+    if (filtersEl && secoes.length > 1) {
+      const categoriaSections = $$(".gifts-category", container);
+
+      function aplicarFiltro(catId) {
+        categoriaSections.forEach((sec) => {
+          sec.hidden = catId !== "__all" && sec.dataset.categoria !== catId;
+        });
+        $$(".gifts-filter-chip", filtersEl).forEach((chip) => {
+          chip.classList.toggle("is-active", chip.dataset.filtro === catId);
+        });
+      }
+
+      const chipsHtml = [`<button type="button" class="gifts-filter-chip is-active" data-filtro="__all">Todos</button>`]
+        .concat(secoes.map((cat) => `
+          <button type="button" class="gifts-filter-chip" data-filtro="${cat.id}">
+            ${cat.icone ? `<span class="gifts-filter-icon">${cat.icone}</span>` : ""}${cat.nome}
+          </button>
+        `))
+        .join("");
+      filtersEl.innerHTML = chipsHtml;
+
+      filtersEl.addEventListener("click", (e) => {
+        const chip = e.target.closest(".gifts-filter-chip");
+        if (!chip) return;
+        aplicarFiltro(chip.dataset.filtro);
+      });
+    } else if (filtersEl) {
+      filtersEl.remove();
+    }
+
     // --- atualiza um card específico conforme o estado de reserva ---
     function aplicarEstado(item, reserva) {
       const card = container.querySelector(`[data-item-id="${item.id}"]`);

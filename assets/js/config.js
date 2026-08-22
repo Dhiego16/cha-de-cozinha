@@ -231,6 +231,136 @@ const CONVITE_CONFIG = {
         imagem: "assets/images/travessas.png",
         categoria: "mesa",
         linkExterno: null
+      },
+      // --- itens novos abaixo, ainda com imagem placeholder (SVG genérico)
+      // até as fotos reais chegarem — só trocar o campo "imagem" depois ---
+      {
+        id: "frigideira",
+        nome: "Frigideira",
+        descricao: "Pra fritar e refogar no dia a dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "sanduicheira",
+        nome: "Sanduicheira",
+        descricao: "Pros lanches rápidos do dia a dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "assadeira",
+        nome: "Assadeira",
+        descricao: "Pra deixar as receitas assadas sempre no ponto",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "kit-panos-prato",
+        nome: "Kit de Pano de Prato",
+        descricao: "Pra manter a cozinha sempre em ordem",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "toalha-mesa",
+        nome: "Toalha de Mesa",
+        descricao: "Pra deixar a mesa ainda mais bonita",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "mesa",
+        linkExterno: null
+      },
+      {
+        id: "chaleira-eletrica",
+        nome: "Chaleira Elétrica",
+        descricao: "Pra esquentar água rapidinho",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "conchas",
+        nome: "Conchas",
+        descricao: "Pra servir sopas e caldos com praticidade",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "kit-cortina",
+        nome: "Kit de Cortina",
+        descricao: "Pra deixar a casa nova com a nossa cara",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "sala",
+        linkExterno: null
+      },
+      {
+        id: "cesto-roupas",
+        nome: "Cesto para Roupas",
+        descricao: "Pra organizar as roupas do dia a dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "banheiro",
+        linkExterno: null
+      },
+      {
+        id: "toalhas-banho",
+        nome: "Toalhas de Banho",
+        descricao: "Pra deixar o banho ainda mais aconchegante",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "banheiro",
+        linkExterno: null
+      },
+      {
+        id: "toalhas-rosto",
+        nome: "Toalhas de Rosto",
+        descricao: "Pra completar o kit do banheiro novo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "banheiro",
+        linkExterno: null
+      },
+      {
+        id: "boleiras",
+        nome: "Boleiras",
+        descricao: "Pra servir os bolos com estilo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "jogo-facas",
+        nome: "Jogo de Facas",
+        descricao: "Pra cortar e preparar com precisão",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "air-fryer",
+        nome: "Air Fryer",
+        descricao: "Pra fritar sem óleo no dia a dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "fogao-cooktop",
+        nome: "Fogão Cooktop",
+        descricao: "Pra equipar a cozinha nova com estilo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "potinhos-temperos",
+        nome: "Potinhos de Temperos",
+        descricao: "Pra organizar os temperos com praticidade",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
       }
     ]
   },
