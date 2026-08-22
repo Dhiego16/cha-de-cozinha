@@ -83,15 +83,33 @@ const CONVITE_CONFIG = {
   presentes: {
     titulo: "Lista de Presentes",
     subtitulo: "Sua presença é o nosso maior presente. Reserve um item abaixo pra gente não repetir presentes — assim que você reservar, ele já some da lista de qualquer outra pessoa que estiver vendo, na hora.",
+
+    // Categorias exibidas em seções, nessa ordem, com scroll na mesma
+    // página. Categoria sem nenhum item vinculado simplesmente não
+    // aparece — pode deixar cadastrada aqui mesmo sem itens ainda.
+    // "icone" é opcional (emoji ao lado do título da seção).
+    categorias: [
+      { id: "cozinha", nome: "Cozinha", icone: "🍳" },
+      { id: "mesa", nome: "Mesa", icone: "🍽️" },
+      { id: "eletrodomesticos", nome: "Eletrodomésticos", icone: "🔌" },
+      { id: "quarto", nome: "Quarto", icone: "🛏️" },
+      { id: "banheiro", nome: "Banheiro", icone: "🚿" },
+      { id: "sala", nome: "Sala", icone: "🛋️" },
+      { id: "limpeza", nome: "Limpeza", icone: "🧹" }
+    ],
+
     itens: [
       {
         // "id" precisa ser único e ESTÁVEL — é o que amarra este item à
         // reserva salva no Firestore. Pode mudar nome/descrição à
         // vontade, mas evite mudar o "id" depois que alguém já reservou.
+        // "categoria" precisa bater com um dos "id" da lista de
+        // categorias acima.
         id: "jogo-cama",
         nome: "Jogo de Cama",
         descricao: "Pra deixar o quarto ainda mais aconchegante",
         imagem: "assets/images/jogodecama.png",
+        categoria: "quarto",
         linkExterno: null
       },
       {
@@ -99,6 +117,7 @@ const CONVITE_CONFIG = {
         nome: "Jogo de Copos",
         descricao: "Para os cafés e sucos do dia a dia",
         imagem: "assets/images/jogodecopo.png",
+        categoria: "mesa",
         linkExterno: null
       },
       {
@@ -106,6 +125,7 @@ const CONVITE_CONFIG = {
         nome: "Jogo de Pratos",
         descricao: "Louças para as refeições em família",
         imagem: "assets/images/jogodeprato.png",
+        categoria: "mesa",
         linkExterno: null
       },
       {
@@ -113,6 +133,7 @@ const CONVITE_CONFIG = {
         nome: "Jogo de Taças",
         descricao: "Pra brindar os bons momentos",
         imagem: "assets/images/jogodetaca.png",
+        categoria: "mesa",
         linkExterno: null
       },
       {
@@ -120,6 +141,7 @@ const CONVITE_CONFIG = {
         nome: "Jogo de Xícaras",
         descricao: "Pro cafezinho e chá de todo dia",
         imagem: "assets/images/jogodexicara.png",
+        categoria: "mesa",
         linkExterno: null
       },
       {
@@ -127,6 +149,7 @@ const CONVITE_CONFIG = {
         nome: "Conjunto de Panelas",
         descricao: "Ajude a equipar a nova cozinha",
         imagem: "assets/images/conjuntodepanela.png",
+        categoria: "cozinha",
         linkExterno: null
       },
       {
@@ -134,6 +157,7 @@ const CONVITE_CONFIG = {
         nome: "Potes Herméticos",
         descricao: "Praticidade pra organizar a despensa",
         imagem: "assets/images/poteshermeticos.png",
+        categoria: "cozinha",
         linkExterno: null
       },
       {
@@ -141,6 +165,7 @@ const CONVITE_CONFIG = {
         nome: "Panela de Pressão",
         descricao: "Pra deixar o feijão pronto rapidinho",
         imagem: "assets/images/paneladepressao.png",
+        categoria: "cozinha",
         linkExterno: null
       },
       {
@@ -148,6 +173,7 @@ const CONVITE_CONFIG = {
         nome: "Guardanapos",
         descricao: "Detalhes que fazem a diferença na mesa",
         imagem: "assets/images/guardanapos.png",
+        categoria: "mesa",
         linkExterno: null
       },
       {
@@ -155,6 +181,7 @@ const CONVITE_CONFIG = {
         nome: "Formas de Bolo",
         descricao: "Pros bolos e doces caseiros",
         imagem: "assets/images/formasdebolo.png",
+        categoria: "cozinha",
         linkExterno: null
       },
       {
@@ -162,6 +189,7 @@ const CONVITE_CONFIG = {
         nome: "Jogo de Sobremesa",
         descricao: "Pra servir a sobremesa com estilo",
         imagem: "assets/images/jogodesobremessa.png",
+        categoria: "mesa",
         linkExterno: null
       },
       {
@@ -169,6 +197,7 @@ const CONVITE_CONFIG = {
         nome: "Escorredor de Louça",
         descricao: "Praticidade pro dia a dia na pia",
         imagem: "assets/images/escorredor.png",
+        categoria: "cozinha",
         linkExterno: null
       },
       {
@@ -176,6 +205,7 @@ const CONVITE_CONFIG = {
         nome: "Talheres",
         descricao: "Pra completar a mesa posta",
         imagem: "assets/images/talheres.png",
+        categoria: "mesa",
         linkExterno: null
       },
       {
@@ -183,6 +213,7 @@ const CONVITE_CONFIG = {
         nome: "Liquidificador",
         descricao: "Um clássico que nunca pode faltar",
         imagem: "assets/images/liquidificador.png",
+        categoria: "eletrodomesticos",
         linkExterno: null
       },
       {
@@ -190,6 +221,7 @@ const CONVITE_CONFIG = {
         nome: "Batedeira",
         descricao: "Pra ajudar nas receitas do dia a dia",
         imagem: "assets/images/batedeira.png",
+        categoria: "eletrodomesticos",
         linkExterno: null
       },
       {
@@ -197,6 +229,7 @@ const CONVITE_CONFIG = {
         nome: "Travessas",
         descricao: "Pra servir com charme nas ocasiões especiais",
         imagem: "assets/images/travessas.png",
+        categoria: "mesa",
         linkExterno: null
       }
     ]
