@@ -574,6 +574,26 @@ input { font-family: inherit; }
    17. LISTA DE PRESENTES
 ------------------------------------------------------------------------- */
 .gifts-section { background: var(--color-bg-alt); }
+
+.gifts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+.gifts-category-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-gold-soft);
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.gifts-category-icon { font-size: 1.15rem; line-height: 1; }
+
 .gifts-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
