@@ -618,6 +618,54 @@ const CONVITE_CONFIG = {
         imagem: "assets/images/kit-pia-cozinha.png",
         categoria: "cozinha",
         linkExterno: null
+      },
+      {
+        id: "tv",
+        nome: "TV",
+        descricao: "Pra maratonar filme e série no cantinho novo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "sala",
+        linkExterno: null
+      },
+      {
+        id: "armario",
+        nome: "Armário",
+        descricao: "Pra organizar a sala com estilo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "sala",
+        linkExterno: null
+      },
+      {
+        id: "guarda-roupa-grande",
+        nome: "Guarda-Roupa Grande",
+        descricao: "Pra organizar tudo no quarto novo",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "quarto",
+        linkExterno: null
+      },
+      {
+        id: "geladeira",
+        nome: "Geladeira",
+        descricao: "Um dos itens mais importantes da casa nova",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "forno",
+        nome: "Forno",
+        descricao: "Pra assar e preparar as receitas do dia a dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "cafeteira-expresso",
+        nome: "Cafeteira Expresso",
+        descricao: "Pro cafezinho fresquinho a qualquer hora",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "eletrodomesticos",
+        linkExterno: null
       }
     ]
   },
