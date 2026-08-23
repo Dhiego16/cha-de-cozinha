@@ -664,6 +664,11 @@
       const mensagem = linhas.join("\n");
       const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
       window.open(url, "_blank", "noopener");
+
+      // Marca como confirmado pra não incomodar mais com o lembrete
+      // flutuante nesta visita (e nas próximas, no mesmo navegador).
+      try { localStorage.setItem(RSVP_DISMISSED_KEY, "1"); } catch (_e) { /* Safari privado etc. */ }
+      $("#rsvp-reminder")?.classList.remove("visible");
     });
   }
 
@@ -779,6 +784,55 @@
   }
 
   /* -----------------------------------------------------------------------
+     16.5 LEMBRETE FLUTUANTE — "Confirme sua presença"
+  ----------------------------------------------------------------------- */
+  const RSVP_DISMISSED_KEY = "cha-cozinha:rsvp-confirmado";
+
+  function initRsvpReminder() {
+    const reminder = $("#rsvp-reminder");
+    const confirmacaoSection = $("#confirmacao");
+    if (!reminder || !confirmacaoSection) return;
+
+    // Já confirmou nesta sessão/navegador antes? Não mostra de novo.
+    if (localStorage.getItem(RSVP_DISMISSED_KEY) === "1") return;
+
+    reminder.addEventListener("click", () => {
+      confirmacaoSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // Só aparece depois que a pessoa já saiu da tela inicial (senão nasce
+    // por cima do hero, que já tem bastante coisa acontecendo).
+    let apareceuUmaVez = false;
+    let dentroDaSecaoConfirmacao = false;
+
+    function atualizarVisibilidade() {
+      const passouDoHero = window.scrollY > window.innerHeight * 0.9;
+      const deveMostrar = passouDoHero && !dentroDaSecaoConfirmacao;
+      reminder.classList.toggle("visible", deveMostrar);
+      if (deveMostrar && !apareceuUmaVez) {
+        apareceuUmaVez = true;
+        reminder.classList.add("pulse");
+        setTimeout(() => reminder.classList.remove("pulse"), 3000);
+      }
+    }
+
+    window.addEventListener("scroll", atualizarVisibilidade, { passive: true });
+    atualizarVisibilidade();
+
+    // Enquanto a seção de confirmação já está visível na tela, o lembrete
+    // some (não faz sentido pedir pra rolar até algo que já está ali).
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(
+        ([entry]) => {
+          dentroDaSecaoConfirmacao = entry.isIntersecting;
+          atualizarVisibilidade();
+        },
+        { threshold: 0.25 }
+      ).observe(confirmacaoSection);
+    }
+  }
+
+  /* -----------------------------------------------------------------------
      11.4 FIREBASE — inicialização (auth anônima + Firestore)
   ----------------------------------------------------------------------- */
   function initFirebase() {
@@ -827,6 +881,7 @@
     initMensagemFinal();
     initMusica();
     initScrollEffects();
+    initRsvpReminder();
 
     if (window.AOS) {
       window.AOS.init({
