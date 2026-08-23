@@ -666,6 +666,30 @@ const CONVITE_CONFIG = {
         imagem: "assets/images/cafeteira-expresso.png",
         categoria: "eletrodomesticos",
         linkExterno: null
+      },
+      {
+        id: "mesa-6-lugares",
+        nome: "Mesa de 6 Lugares",
+        descricao: "Pra reunir a família em volta de uma boa refeição",
+        imagem: "assets/images/mesa-6-lugares.png",
+        categoria: "sala",
+        linkExterno: null
+      },
+      {
+        id: "painel",
+        nome: "Painel",
+        descricao: "Pra dar um toque especial e organizar a sala",
+        imagem: "assets/images/painel.png",
+        categoria: "sala",
+        linkExterno: null
+      },
+      {
+        id: "cama",
+        nome: "Cama",
+        descricao: "Pra noites de sono tranquilas no lar novo",
+        imagem: "assets/images/cama.png",
+        categoria: "quarto",
+        linkExterno: null
       }
     ]
   },
