@@ -630,9 +630,9 @@ const CONVITE_CONFIG = {
       {
         id: "armario",
         nome: "Armário",
-        descricao: "Pra organizar a sala com estilo",
+        descricao: "Pra organizar a cozinha com estilo",
         imagem: "assets/images/presente-01.svg",
-        categoria: "sala",
+        categoria: "cozinha",
         linkExterno: null
       },
       {
