@@ -411,6 +411,13 @@
     if (filtersEl && secoes.length > 1) {
       const categoriaSections = $$(".gifts-category", container);
 
+      // Marcador no fluxo normal do documento (não sticky), usado como
+      // referência pra saber pra onde rolar e pra detectar quando a barra
+      // de filtros "gruda" no topo. Precisa existir antes de aplicarFiltro
+      // usá-lo.
+      const sentinela = document.createElement("div");
+      filtersEl.before(sentinela);
+
       function aplicarFiltro(catId, rolarParaTopo) {
         categoriaSections.forEach((sec) => {
           sec.hidden = sec.dataset.categoria !== catId;
@@ -426,8 +433,11 @@
         // Ao trocar de categoria, volta o scroll pro início da lista de
         // presentes — sem isso, quem estava lá embaixo numa categoria
         // grande cai numa categoria menor já no fim (ou vazia na tela).
+        // Usa a sentinela (fora do fluxo sticky) como referência: a barra
+        // de filtros, quando já grudada no topo, sempre reporta top ≈ 0,
+        // o que fazia o cálculo antigo não rolar quase nada.
         if (rolarParaTopo) {
-          const offsetTop = filtersEl.getBoundingClientRect().top + window.scrollY - 12;
+          const offsetTop = sentinela.getBoundingClientRect().top + window.scrollY;
           window.scrollTo({ top: offsetTop, behavior: "smooth" });
         }
       }
@@ -454,8 +464,6 @@
       // Alterna uma linha sutil quando os chips ficam "grudados" no topo
       // (sticky), pra separar visualmente do conteúdo por baixo.
       if ("IntersectionObserver" in window) {
-        const sentinela = document.createElement("div");
-        filtersEl.before(sentinela);
         new IntersectionObserver(
           ([entry]) => filtersEl.classList.toggle("is-stuck", !entry.isIntersecting),
           { threshold: 0 }
