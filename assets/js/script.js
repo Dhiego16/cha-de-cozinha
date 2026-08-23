@@ -485,7 +485,7 @@
 
       if (reserva) {
         footer.innerHTML = `
-          <span class="gift-reservado-badge"><i class="fa-solid fa-check"></i> Reservado por ${reserva.nome}</span>
+          <span class="gift-reservado-badge"><i class="fa-solid fa-check"></i> Reservado</span>
         `;
       } else {
         footer.innerHTML = `
