@@ -600,7 +600,20 @@ input { font-family: inherit; }
   justify-content: center;
   gap: 0.6rem;
   margin: 0 0 2.4rem;
+  /* Fica grudado no topo enquanto o usuário rola a lista de presentes,
+     pra sempre poder trocar de categoria sem precisar voltar pra cima
+     (importante já que o site é acessado majoritariamente pelo celular). */
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  padding: 0.9rem 0.6rem;
+  background: rgba(18, 18, 20, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-fast) var(--ease-premium);
 }
+.gifts-filters.is-stuck { border-bottom-color: var(--color-border); }
 .gifts-filter-chip {
   display: inline-flex;
   align-items: center;
