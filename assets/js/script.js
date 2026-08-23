@@ -300,6 +300,7 @@
      11.5 LISTA DE PRESENTES — reserva em tempo real via Firestore
   ----------------------------------------------------------------------- */
   const FIRESTORE_COLLECTION = "presentes-reservas";
+  const FIRESTORE_RSVP_COLLECTION = "confirmacoes-presenca";
 
   // Guarda o nome do último presente reservado nesta sessão, pra já
   // preencher automaticamente na Confirmação de Presença logo abaixo.
@@ -511,10 +512,21 @@
 
     // --- assina a coleção inteira em tempo real ---
     const db = window.firebaseDb;
+    const progressWrap = $("#gifts-progress");
+    const progressFill = $("#gifts-progress-fill");
+    const progressText = $("#gifts-progress-text");
     db.collection(FIRESTORE_COLLECTION).onSnapshot((snapshot) => {
       const reservas = {};
       snapshot.forEach((doc) => { reservas[doc.id] = doc.data(); });
       itens.forEach((item) => aplicarEstado(item, reservas[item.id] || null));
+
+      if (progressWrap && progressFill && progressText && itens.length > 0) {
+        const reservados = itens.filter((item) => reservas[item.id]).length;
+        const pct = Math.round((reservados / itens.length) * 100);
+        progressFill.style.width = pct + "%";
+        progressText.textContent = `${reservados} de ${itens.length} presentes já escolhidos`;
+        progressWrap.hidden = false;
+      }
     }, (err) => {
       console.error("Firestore (presentes) erro ao ouvir mudanças:", err);
       mostrarToast("Não foi possível carregar as reservas agora.");
@@ -627,6 +639,18 @@
         return;
       }
 
+      // Salva a confirmação no Firestore (se disponível) pra alimentar o
+      // contador de "quem confirmou presença" em tempo real. Não bloqueia
+      // o fluxo: se falhar, a pessoa ainda é direcionada pro WhatsApp.
+      if (window.firebaseDb) {
+        window.firebaseDb.collection(FIRESTORE_RSVP_COLLECTION).add({
+          nome,
+          acompanhantes,
+          presente: ultimoPresenteReservado || null,
+          confirmadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }).catch((err) => console.error("Firestore (RSVP) erro ao salvar:", err));
+      }
+
       const linhas = [
         `Olá! Confirmando minha presença no Chá de Cozinha de ${homenageada.primeiroNome || ""} 🎉`,
         "",
@@ -640,6 +664,35 @@
       const mensagem = linhas.join("\n");
       const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
       window.open(url, "_blank", "noopener");
+    });
+  }
+
+  /* -----------------------------------------------------------------------
+     11.7 CONTADOR "QUEM CONFIRMOU PRESENÇA" — soma em tempo real via
+     Firestore (só é chamado depois que o Firebase autentica, junto com
+     initPresentes()).
+  ----------------------------------------------------------------------- */
+  function initRsvpCounter() {
+    const db = window.firebaseDb;
+    const counterEl = $("#rsvp-counter");
+    const counterText = $("#rsvp-counter-text");
+    if (!db || !counterEl || !counterText) return;
+
+    db.collection(FIRESTORE_RSVP_COLLECTION).onSnapshot((snapshot) => {
+      let totalPessoas = 0;
+      snapshot.forEach((doc) => {
+        totalPessoas += Number(doc.data().acompanhantes) || 1;
+      });
+      if (totalPessoas > 0) {
+        counterText.textContent = totalPessoas === 1
+          ? "1 pessoa já confirmou presença"
+          : `${totalPessoas} pessoas já confirmaram presença`;
+        counterEl.hidden = false;
+      } else {
+        counterEl.hidden = true;
+      }
+    }, (err) => {
+      console.error("Firestore (contador RSVP) erro ao ouvir mudanças:", err);
     });
   }
 
@@ -745,6 +798,7 @@
         .then(() => {
           window.firebaseDb = firebase.firestore();
           initPresentes();
+          initRsvpCounter();
         })
         .catch((err) => {
           console.error("Firebase — falha na autenticação anônima:", err);
