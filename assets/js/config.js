@@ -570,6 +570,54 @@ const CONVITE_CONFIG = {
         imagem: "assets/images/varal-chao.png",
         categoria: "limpeza",
         linkExterno: null
+      },
+      {
+        id: "jogo-potes-vidro",
+        nome: "Jogo de Potes de Vidro com Tampa",
+        descricao: "Pra guardar mantimentos com estilo e durabilidade",
+        imagem: "assets/images/jogo-potes-vidro.png",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "microondas",
+        nome: "Microondas",
+        descricao: "Praticidade pra esquentar e descongelar no dia a dia",
+        imagem: "assets/images/microondas.png",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "espremedor-frutas",
+        nome: "Espremedor de Frutas",
+        descricao: "Pros sucos naturais fresquinhos toda manhã",
+        imagem: "assets/images/espremedor-frutas.png",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "maquina-lavar",
+        nome: "Máquina de Lavar Roupas",
+        descricao: "Um item essencial pra rotina da casa nova",
+        imagem: "assets/images/maquina-lavar.png",
+        categoria: "eletrodomesticos",
+        linkExterno: null
+      },
+      {
+        id: "porta-frios-queijeira",
+        nome: "Porta Frios + Queijeira de Vidro",
+        descricao: "Pra servir frios e queijos com elegância",
+        imagem: "assets/images/porta-frios-queijeira.png",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "kit-pia-cozinha",
+        nome: "Kit para Pia da Cozinha",
+        descricao: "Organização e praticidade na hora de lavar louça",
+        imagem: "assets/images/kit-pia-cozinha.png",
+        categoria: "cozinha",
+        linkExterno: null
       }
     ]
   },
