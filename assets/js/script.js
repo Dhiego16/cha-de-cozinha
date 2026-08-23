@@ -400,6 +400,12 @@
       `;
     }).join("");
 
+    // Os cards são inseridos dinamicamente (depois do AOS.init() já ter
+    // rodado no carregamento da página), então o AOS precisa recalcular
+    // as posições de gatilho das animações — senão os itens ficam com
+    // opacity:0 "escondidos" até o usuário rolar a página inteira.
+    if (window.AOS) window.AOS.refreshHard();
+
     // --- chips de filtro por categoria (só faz sentido com 2+ seções) ---
     const filtersEl = $("#gifts-filters");
     if (filtersEl && secoes.length > 1) {
@@ -407,20 +413,23 @@
 
       function aplicarFiltro(catId) {
         categoriaSections.forEach((sec) => {
-          sec.hidden = catId !== "__all" && sec.dataset.categoria !== catId;
+          sec.hidden = sec.dataset.categoria !== catId;
         });
         $$(".gifts-filter-chip", filtersEl).forEach((chip) => {
           chip.classList.toggle("is-active", chip.dataset.filtro === catId);
         });
+        // Mostrar/ocultar seções muda a altura da página — sem isso o AOS
+        // mantém os pontos de gatilho antigos e os cards da categoria
+        // selecionada não aparecem até rolar a página toda.
+        if (window.AOS) window.AOS.refreshHard();
       }
 
-      const chipsHtml = [`<button type="button" class="gifts-filter-chip is-active" data-filtro="__all">Todos</button>`]
-        .concat(secoes.map((cat) => `
-          <button type="button" class="gifts-filter-chip" data-filtro="${cat.id}">
+      // Sem chip "Todos": sempre exibe uma única categoria por vez.
+      const chipsHtml = secoes.map((cat, i) => `
+          <button type="button" class="gifts-filter-chip${i === 0 ? " is-active" : ""}" data-filtro="${cat.id}">
             ${cat.icone ? `<span class="gifts-filter-icon">${cat.icone}</span>` : ""}${cat.nome}
           </button>
-        `))
-        .join("");
+        `).join("");
       filtersEl.innerHTML = chipsHtml;
 
       filtersEl.addEventListener("click", (e) => {
@@ -428,6 +437,9 @@
         if (!chip) return;
         aplicarFiltro(chip.dataset.filtro);
       });
+
+      // Estado inicial: mostra apenas a primeira categoria.
+      aplicarFiltro(secoes[0].id);
     } else if (filtersEl) {
       filtersEl.remove();
     }
