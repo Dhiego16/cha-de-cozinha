@@ -440,6 +440,17 @@
 
       // Estado inicial: mostra apenas a primeira categoria.
       aplicarFiltro(secoes[0].id);
+
+      // Alterna uma linha sutil quando os chips ficam "grudados" no topo
+      // (sticky), pra separar visualmente do conteúdo por baixo.
+      if ("IntersectionObserver" in window) {
+        const sentinela = document.createElement("div");
+        filtersEl.before(sentinela);
+        new IntersectionObserver(
+          ([entry]) => filtersEl.classList.toggle("is-stuck", !entry.isIntersecting),
+          { threshold: 0 }
+        ).observe(sentinela);
+      }
     } else if (filtersEl) {
       filtersEl.remove();
     }
