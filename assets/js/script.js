@@ -411,7 +411,7 @@
     if (filtersEl && secoes.length > 1) {
       const categoriaSections = $$(".gifts-category", container);
 
-      function aplicarFiltro(catId) {
+      function aplicarFiltro(catId, rolarParaTopo) {
         categoriaSections.forEach((sec) => {
           sec.hidden = sec.dataset.categoria !== catId;
         });
@@ -422,6 +422,14 @@
         // mantém os pontos de gatilho antigos e os cards da categoria
         // selecionada não aparecem até rolar a página toda.
         if (window.AOS) window.AOS.refreshHard();
+
+        // Ao trocar de categoria, volta o scroll pro início da lista de
+        // presentes — sem isso, quem estava lá embaixo numa categoria
+        // grande cai numa categoria menor já no fim (ou vazia na tela).
+        if (rolarParaTopo) {
+          const offsetTop = filtersEl.getBoundingClientRect().top + window.scrollY - 12;
+          window.scrollTo({ top: offsetTop, behavior: "smooth" });
+        }
       }
 
       // Sem chip "Todos": sempre exibe uma única categoria por vez.
@@ -435,11 +443,13 @@
       filtersEl.addEventListener("click", (e) => {
         const chip = e.target.closest(".gifts-filter-chip");
         if (!chip) return;
-        aplicarFiltro(chip.dataset.filtro);
+        if (chip.classList.contains("is-active")) return;
+        aplicarFiltro(chip.dataset.filtro, true);
       });
 
-      // Estado inicial: mostra apenas a primeira categoria.
-      aplicarFiltro(secoes[0].id);
+      // Estado inicial: mostra apenas a primeira categoria (sem rolar a
+      // página, já que isso acontece no carregamento normal).
+      aplicarFiltro(secoes[0].id, false);
 
       // Alterna uma linha sutil quando os chips ficam "grudados" no topo
       // (sticky), pra separar visualmente do conteúdo por baixo.
