@@ -543,7 +543,7 @@ const CONVITE_CONFIG = {
         id: "tapetes-cozinha",
         nome: "Tapetes para Cozinha",
         descricao: "Pra deixar a cozinha nova com mais conforto",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/tapetes-cozinha.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -551,7 +551,7 @@ const CONVITE_CONFIG = {
         id: "garrafa-termica-cafe",
         nome: "Garrafa Térmica para Café",
         descricao: "Pro café quentinho a qualquer hora do dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/garrafa-termica-cafe.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -559,7 +559,7 @@ const CONVITE_CONFIG = {
         id: "coador",
         nome: "Coador",
         descricao: "Pra coar o café fresquinho de todo dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/coador.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -567,7 +567,7 @@ const CONVITE_CONFIG = {
         id: "varal-chao",
         nome: "Varal de Chão",
         descricao: "Pra secar as roupas com praticidade",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/varal-chao.png",
         categoria: "limpeza",
         linkExterno: null
       }
