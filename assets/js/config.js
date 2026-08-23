@@ -538,6 +538,38 @@ const CONVITE_CONFIG = {
         imagem: "assets/images/vale-presente-lua-de-mel.png",
         categoria: "vale-presente",
         linkExterno: null
+      },
+      {
+        id: "tapetes-cozinha",
+        nome: "Tapetes para Cozinha",
+        descricao: "Pra deixar a cozinha nova com mais conforto",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "garrafa-termica-cafe",
+        nome: "Garrafa Térmica para Café",
+        descricao: "Pro café quentinho a qualquer hora do dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "coador",
+        nome: "Coador",
+        descricao: "Pra coar o café fresquinho de todo dia",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "cozinha",
+        linkExterno: null
+      },
+      {
+        id: "varal-chao",
+        nome: "Varal de Chão",
+        descricao: "Pra secar as roupas com praticidade",
+        imagem: "assets/images/presente-01.svg",
+        categoria: "limpeza",
+        linkExterno: null
       }
     ]
   },
