@@ -623,7 +623,7 @@ const CONVITE_CONFIG = {
         id: "tv",
         nome: "TV",
         descricao: "Pra maratonar filme e série no cantinho novo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/tv.png",
         categoria: "sala",
         linkExterno: null
       },
@@ -631,7 +631,7 @@ const CONVITE_CONFIG = {
         id: "armario",
         nome: "Armário",
         descricao: "Pra organizar a cozinha com estilo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/armario.png",
         categoria: "cozinha",
         linkExterno: null
       },
@@ -639,7 +639,7 @@ const CONVITE_CONFIG = {
         id: "guarda-roupa-grande",
         nome: "Guarda-Roupa Grande",
         descricao: "Pra organizar tudo no quarto novo",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/guarda-roupa-grande.png",
         categoria: "quarto",
         linkExterno: null
       },
@@ -647,7 +647,7 @@ const CONVITE_CONFIG = {
         id: "geladeira",
         nome: "Geladeira",
         descricao: "Um dos itens mais importantes da casa nova",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/geladeira.png",
         categoria: "eletrodomesticos",
         linkExterno: null
       },
@@ -655,7 +655,7 @@ const CONVITE_CONFIG = {
         id: "forno",
         nome: "Forno",
         descricao: "Pra assar e preparar as receitas do dia a dia",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/forno.png",
         categoria: "eletrodomesticos",
         linkExterno: null
       },
@@ -663,7 +663,7 @@ const CONVITE_CONFIG = {
         id: "cafeteira-expresso",
         nome: "Cafeteira Expresso",
         descricao: "Pro cafezinho fresquinho a qualquer hora",
-        imagem: "assets/images/presente-01.svg",
+        imagem: "assets/images/cafeteira-expresso.png",
         categoria: "eletrodomesticos",
         linkExterno: null
       }
