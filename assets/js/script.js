@@ -608,20 +608,15 @@
 
     const giftInfo = $("#rsvp-gift-info");
     const giftName = $("#rsvp-gift-name");
+    const formEl = $("#rsvp-form");
     const nomeInput = $("#rsvp-nome");
     const acompanhantesInput = $("#rsvp-acompanhantes");
     const btn = $("#rsvp-confirm-btn");
     const hint = $("#rsvp-hint");
+    const jaConfirmadoEl = $("#rsvp-already");
+    const jaConfirmadoNomeEl = $("#rsvp-already-nome");
+    const notifyGiftBtn = $("#rsvp-notify-gift-btn");
     if (!btn) return;
-
-    // Exposto pra initPresentes() chamar assim que alguém reservar um item.
-    atualizarRsvpGiftInfo = () => {
-      if (giftInfo && giftName && ultimoPresenteReservado) {
-        giftName.textContent = ultimoPresenteReservado;
-        giftInfo.hidden = false;
-      }
-    };
-    atualizarRsvpGiftInfo();
 
     const numero = (c.whatsapp || "").replace(/\D/g, "");
     if (!numero) {
@@ -630,6 +625,64 @@
       if (hint) hint.textContent = "Confirmação ainda não configurada.";
       return;
     }
+
+    // Nome e nº de acompanhantes ficam guardados localmente só pra poder
+    // reaproveitar na mensagem de "avisar presente" sem pedir de novo.
+    function dadosSalvos() {
+      try {
+        return {
+          nome: localStorage.getItem(RSVP_NOME_KEY) || "",
+          acompanhantes: localStorage.getItem(RSVP_ACOMP_KEY) || "1"
+        };
+      } catch (_e) {
+        return { nome: "", acompanhantes: "1" };
+      }
+    }
+
+    function mostrarEstadoJaConfirmado() {
+      const { nome } = dadosSalvos();
+      if (formEl) formEl.hidden = true;
+      if (jaConfirmadoEl) jaConfirmadoEl.hidden = false;
+      if (jaConfirmadoNomeEl) jaConfirmadoNomeEl.textContent = nome ? `, ${nome}` : "";
+      // Só mostra o botão de "avisar presente" se ela reservou algo
+      // DEPOIS de já ter confirmado presença (senão não tem o que avisar).
+      if (notifyGiftBtn) notifyGiftBtn.hidden = !ultimoPresenteReservado;
+    }
+
+    // Exposto pra initPresentes() chamar assim que alguém reservar um item.
+    atualizarRsvpGiftInfo = () => {
+      if (giftInfo && giftName && ultimoPresenteReservado) {
+        giftName.textContent = ultimoPresenteReservado;
+        giftInfo.hidden = false;
+      }
+      // Se ela já tinha confirmado presença antes e agora reservou um
+      // presente, libera o botão de avisar sem precisar recarregar a página.
+      if (notifyGiftBtn && jaConfirmadoEl && !jaConfirmadoEl.hidden) {
+        notifyGiftBtn.hidden = !ultimoPresenteReservado;
+      }
+    };
+    atualizarRsvpGiftInfo();
+
+    function montarMensagem({ nome, acompanhantes, incluirSaudacaoCompleta }) {
+      const linhas = incluirSaudacaoCompleta
+        ? [
+            `Olá! Confirmando minha presença no Chá de Cozinha de ${homenageada.primeiroNome || ""} 🎉`,
+            "",
+            `Nome: ${nome}`,
+            `Acompanhantes: ${acompanhantes}`
+          ]
+        : [`Olá! Aqui é ${nome} 🎁`, "", "Só passando pra avisar o presente que escolhi:"];
+      if (ultimoPresenteReservado) {
+        linhas.push(`Presente escolhido: ${ultimoPresenteReservado}`);
+      }
+      return linhas.join("\n");
+    }
+
+    // Se ela já confirmou presença neste navegador antes, mostra o estado
+    // "já confirmado" direto, sem deixar preencher o formulário de novo.
+    let jaConfirmadoAntes = false;
+    try { jaConfirmadoAntes = localStorage.getItem(RSVP_DISMISSED_KEY) === "1"; } catch (_e) { /* Safari privado etc. */ }
+    if (jaConfirmadoAntes) mostrarEstadoJaConfirmado();
 
     btn.addEventListener("click", () => {
       const nome = (nomeInput?.value || "").trim();
@@ -651,24 +704,27 @@
         }).catch((err) => console.error("Firestore (RSVP) erro ao salvar:", err));
       }
 
-      const linhas = [
-        `Olá! Confirmando minha presença no Chá de Cozinha de ${homenageada.primeiroNome || ""} 🎉`,
-        "",
-        `Nome: ${nome}`,
-        `Acompanhantes: ${acompanhantes}`
-      ];
-      if (ultimoPresenteReservado) {
-        linhas.push(`Presente escolhido: ${ultimoPresenteReservado}`);
-      }
-
-      const mensagem = linhas.join("\n");
-      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(montarMensagem({ nome, acompanhantes, incluirSaudacaoCompleta: true }))}`;
       window.open(url, "_blank", "noopener");
 
-      // Marca como confirmado pra não incomodar mais com o lembrete
-      // flutuante nesta visita (e nas próximas, no mesmo navegador).
-      try { localStorage.setItem(RSVP_DISMISSED_KEY, "1"); } catch (_e) { /* Safari privado etc. */ }
+      // Marca como confirmado (nome incluso) pra não deixar confirmar de
+      // novo — nem duplicar o registro no Firestore — nesta visita e nas
+      // próximas, no mesmo navegador.
+      try {
+        localStorage.setItem(RSVP_DISMISSED_KEY, "1");
+        localStorage.setItem(RSVP_NOME_KEY, nome);
+        localStorage.setItem(RSVP_ACOMP_KEY, String(acompanhantes));
+      } catch (_e) { /* Safari privado etc. */ }
       $("#rsvp-reminder")?.classList.remove("visible");
+      mostrarEstadoJaConfirmado();
+    });
+
+    // Botão secundário: manda o presente escolhido pelo WhatsApp SEM
+    // gravar uma nova confirmação de presença (ela já confirmou antes).
+    notifyGiftBtn?.addEventListener("click", () => {
+      const { nome, acompanhantes } = dadosSalvos();
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(montarMensagem({ nome: nome || "—", acompanhantes, incluirSaudacaoCompleta: false }))}`;
+      window.open(url, "_blank", "noopener");
     });
   }
 
@@ -787,6 +843,8 @@
      16.5 LEMBRETE FLUTUANTE — "Confirme sua presença"
   ----------------------------------------------------------------------- */
   const RSVP_DISMISSED_KEY = "cha-cozinha:rsvp-confirmado";
+  const RSVP_NOME_KEY = "cha-cozinha:rsvp-nome";
+  const RSVP_ACOMP_KEY = "cha-cozinha:rsvp-acompanhantes";
 
   function initRsvpReminder() {
     const reminder = $("#rsvp-reminder");
