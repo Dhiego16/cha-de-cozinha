@@ -221,17 +221,32 @@
             <span>Presente escolhido: <strong id="rsvp-gift-name"></strong></span>
           </div>
 
-          <label for="rsvp-nome">Seu nome</label>
-          <input type="text" id="rsvp-nome" placeholder="Como quer ser identificado(a)" autocomplete="name">
+          <!-- Formulário normal — some depois que a pessoa já confirmou -->
+          <div id="rsvp-form">
+            <label for="rsvp-nome">Seu nome</label>
+            <input type="text" id="rsvp-nome" placeholder="Como quer ser identificado(a)" autocomplete="name">
 
-          <label for="rsvp-acompanhantes">Quantas pessoas (incluindo você)</label>
-          <input type="number" id="rsvp-acompanhantes" min="1" max="10" value="1">
+            <label for="rsvp-acompanhantes">Quantas pessoas (incluindo você)</label>
+            <input type="number" id="rsvp-acompanhantes" min="1" max="10" value="1">
 
-          <button type="button" class="btn btn-primary rsvp-btn" id="rsvp-confirm-btn">
-            <i class="fa-brands fa-whatsapp"></i> <span>Confirmar via WhatsApp</span>
-          </button>
+            <button type="button" class="btn btn-primary rsvp-btn" id="rsvp-confirm-btn">
+              <i class="fa-brands fa-whatsapp"></i> <span>Confirmar via WhatsApp</span>
+            </button>
 
-          <p class="rsvp-hint" id="rsvp-hint">Você será direcionado(a) ao WhatsApp com os dados já preenchidos.</p>
+            <p class="rsvp-hint" id="rsvp-hint">Você será direcionado(a) ao WhatsApp com os dados já preenchidos.</p>
+          </div>
+
+          <!-- Aparece no lugar do formulário depois que a pessoa já confirmou
+               presença neste navegador — evita confirmar (e contar) duas vezes -->
+          <div id="rsvp-already" hidden>
+            <p class="rsvp-already-text">
+              <i class="fa-solid fa-circle-check"></i>
+              Você já confirmou presença<span id="rsvp-already-nome"></span>! Obrigada 💛
+            </p>
+            <button type="button" class="btn btn-secondary rsvp-btn" id="rsvp-notify-gift-btn" hidden>
+              <i class="fa-brands fa-whatsapp"></i> <span>Avisar presente escolhido</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -255,7 +270,7 @@
       <text x="100" y="65" text-anchor="middle" class="monogram-text-footer" id="footer-monogram">A &amp; M</text>
     </svg>
     <p id="footer-names">Ana e Maicon</p>
-    <p class="footer-date" id="footer-data">13 · 12 · 2026</p>
+    <p class="footer-date" id="footer-data">06 · 09 · 2026</p>
   </footer>
 
   <!-- Scripts -->
