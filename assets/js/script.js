@@ -518,6 +518,28 @@
       return;
     }
 
+    // Dentro de cada categoria, coloca os presentes ainda disponíveis
+    // primeiro e os já reservados por último — evita ter que "pular" itens
+    // já escolhidos no meio da lista pra encontrar o que ainda falta.
+    // Mantém a ordem relativa original dentro de cada grupo (sort estável)
+    // e só mexe no DOM quando a ordem realmente muda, pra não gerar
+    // reflow/flicker à toa a cada atualização em tempo real.
+    function reordenarCards(reservas) {
+      $$(".gifts-category", container).forEach((secao) => {
+        const grid = secao.querySelector(".gifts-grid");
+        if (!grid) return;
+        const cardsAtuais = Array.from(grid.children);
+        const ordenados = [...cardsAtuais].sort((a, b) => {
+          const reservadoA = !!reservas[a.dataset.itemId];
+          const reservadoB = !!reservas[b.dataset.itemId];
+          if (reservadoA === reservadoB) return 0;
+          return reservadoA ? 1 : -1;
+        });
+        const mudou = ordenados.some((el, i) => el !== cardsAtuais[i]);
+        if (mudou) ordenados.forEach((el) => grid.appendChild(el));
+      });
+    }
+
     // --- assina a coleção inteira em tempo real ---
     const db = window.firebaseDb;
     const progressWrap = $("#gifts-progress");
@@ -527,6 +549,7 @@
       const reservas = {};
       snapshot.forEach((doc) => { reservas[doc.id] = doc.data(); });
       itens.forEach((item) => aplicarEstado(item, reservas[item.id] || null));
+      reordenarCards(reservas);
 
       // Atualiza a lista global de presentes ainda sem reserva — usada
       // pra sugerir um item na Confirmação de Presença. Reavalia a
