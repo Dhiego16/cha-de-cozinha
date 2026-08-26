@@ -884,6 +884,28 @@ input { font-family: inherit; }
 .rsvp-suggestion-text strong { color: var(--color-gold-soft); font-weight: 600; }
 #rsvp-suggestion-btn { margin: 0 auto; width: fit-content; flex: none; padding-left: 1.4rem; padding-right: 1.4rem; }
 
+.rsvp-pre-warning {
+  margin-top: 1.4rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: var(--radius-sm);
+  border: 1px dashed rgba(201,168,104,0.4);
+  background: rgba(201,168,104,0.06);
+}
+.rsvp-pre-warning-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  text-align: left;
+}
+.rsvp-pre-warning-text i { color: var(--color-gold); margin-top: 0.2rem; flex-shrink: 0; }
+.rsvp-pre-warning-text strong { color: var(--color-gold-soft); font-weight: 600; }
+.rsvp-pre-warning-actions { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+.rsvp-pre-warning-actions .rsvp-btn { flex: 1; min-width: 140px; }
+
 /* Modal de reserva */
 .reserve-modal {
   position: fixed;

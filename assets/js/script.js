@@ -659,6 +659,10 @@
     const suggestionBox = $("#rsvp-suggestion");
     const suggestionNome = $("#rsvp-suggestion-nome");
     const suggestionBtn = $("#rsvp-suggestion-btn");
+    const preWarning = $("#rsvp-pre-warning");
+    const preWarningNome = $("#rsvp-pre-warning-nome");
+    const preWarningVerBtn = $("#rsvp-pre-warning-ver");
+    const preWarningConfirmarBtn = $("#rsvp-pre-warning-confirmar");
     if (!btn) return;
 
     const numero = (c.whatsapp || "").replace(/\D/g, "");
@@ -719,6 +723,12 @@
         giftName.textContent = ultimoPresenteReservado;
         giftInfo.hidden = false;
       }
+      // Se a pessoa reservou um presente enquanto o aviso pré-confirmação
+      // estava aberto, esconde o aviso — ela já pode clicar em "Confirmar
+      // presença" de novo normalmente.
+      if (preWarning && !preWarning.hidden && ultimoPresenteReservado) {
+        preWarning.hidden = true;
+      }
       // Se ela já tinha confirmado presença antes e agora reservou um
       // presente, libera o botão de avisar e esconde a sugestão sem
       // precisar recarregar a página.
@@ -750,14 +760,11 @@
     try { jaConfirmadoAntes = localStorage.getItem(RSVP_DISMISSED_KEY) === "1"; } catch (_e) { /* Safari privado etc. */ }
     if (jaConfirmadoAntes) mostrarEstadoJaConfirmado();
 
-    btn.addEventListener("click", () => {
-      const nome = (nomeInput?.value || "").trim();
-      const acompanhantes = Math.max(1, Math.min(10, Number(acompanhantesInput?.value) || 1));
-      if (!nome) {
-        nomeInput?.focus();
-        return;
-      }
-
+    // Efetiva a confirmação de fato: grava no Firestore, abre o WhatsApp e
+    // marca como confirmado neste navegador. Chamada tanto pelo clique
+    // normal (quando já tem presente escolhido ou não há mais nenhum
+    // disponível) quanto por "Confirmar mesmo assim" no aviso.
+    function efetivarConfirmacao(nome, acompanhantes) {
       // Salva a confirmação no Firestore (se disponível) pra alimentar o
       // contador de "quem confirmou presença" em tempo real. Não bloqueia
       // o fluxo: se falhar, a pessoa ainda é direcionada pro WhatsApp.
@@ -782,7 +789,46 @@
         localStorage.setItem(RSVP_ACOMP_KEY, String(acompanhantes));
       } catch (_e) { /* Safari privado etc. */ }
       $("#rsvp-reminder")?.classList.remove("visible");
+      if (preWarning) preWarning.hidden = true;
       mostrarEstadoJaConfirmado();
+    }
+
+    btn.addEventListener("click", () => {
+      const nome = (nomeInput?.value || "").trim();
+      const acompanhantes = Math.max(1, Math.min(10, Number(acompanhantesInput?.value) || 1));
+      if (!nome) {
+        nomeInput?.focus();
+        return;
+      }
+
+      // Antes de ir pro WhatsApp: se ainda não escolheu nenhum presente e
+      // ainda tem itens disponíveis, mostra o aviso com uma sugestão em
+      // vez de confirmar direto — reduz confirmações sem reserva.
+      if (!ultimoPresenteReservado && itensDisponiveis.length > 0 && preWarning) {
+        const sugestao = itensDisponiveis[Math.floor(Math.random() * itensDisponiveis.length)];
+        if (preWarningNome) preWarningNome.textContent = sugestao.nome;
+        if (preWarningVerBtn) preWarningVerBtn.dataset.itemId = sugestao.id;
+        preWarning.hidden = false;
+        preWarning.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        return;
+      }
+
+      efetivarConfirmacao(nome, acompanhantes);
+    });
+
+    preWarningVerBtn?.addEventListener("click", () => {
+      const itemId = preWarningVerBtn.dataset.itemId;
+      if (itemId && typeof irParaPresente === "function") irParaPresente(itemId);
+    });
+
+    preWarningConfirmarBtn?.addEventListener("click", () => {
+      const nome = (nomeInput?.value || "").trim();
+      const acompanhantes = Math.max(1, Math.min(10, Number(acompanhantesInput?.value) || 1));
+      if (!nome) {
+        nomeInput?.focus();
+        return;
+      }
+      efetivarConfirmacao(nome, acompanhantes);
     });
 
     // Botão secundário: manda o presente escolhido pelo WhatsApp SEM

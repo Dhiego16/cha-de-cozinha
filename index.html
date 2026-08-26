@@ -234,6 +234,24 @@
             </button>
 
             <p class="rsvp-hint" id="rsvp-hint">Você será direcionado(a) ao WhatsApp com os dados já preenchidos.</p>
+
+            <!-- Aparece ao clicar em "Confirmar" sem ter escolhido nenhum
+                 presente ainda — pede uma decisão antes de ir pro WhatsApp. -->
+            <div class="rsvp-pre-warning" id="rsvp-pre-warning" hidden>
+              <p class="rsvp-pre-warning-text">
+                <i class="fa-solid fa-circle-info"></i>
+                Antes de confirmar: você ainda não escolheu um presente. Que tal
+                <strong id="rsvp-pre-warning-nome"></strong>?
+              </p>
+              <div class="rsvp-pre-warning-actions">
+                <button type="button" class="btn btn-secondary rsvp-btn" id="rsvp-pre-warning-ver">
+                  <i class="fa-solid fa-gift"></i> <span>Ver esse presente</span>
+                </button>
+                <button type="button" class="btn btn-primary rsvp-btn" id="rsvp-pre-warning-confirmar">
+                  Confirmar mesmo assim
+                </button>
+              </div>
+            </div>
           </div>
 
           <!-- Aparece no lugar do formulário depois que a pessoa já confirmou
