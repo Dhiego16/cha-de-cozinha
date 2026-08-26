@@ -307,6 +307,14 @@
   let ultimoPresenteReservado = null;
   let atualizarRsvpGiftInfo = null; // ligado por initConfirmacaoPresenca()
 
+  // Lista de presentes ainda sem reserva, atualizada em tempo real pelo
+  // listener do Firestore em initPresentes(). Usada pra sugerir um
+  // presente na Confirmação de Presença de quem ainda não escolheu nada.
+  let itensDisponiveis = [];
+  // Rola até um presente específico, troca pra categoria dele (se
+  // necessário) e dá um destaque visual rápido. Ligado por initPresentes().
+  let irParaPresente = null;
+
   function initPresentes() {
     const p = cfg.presentes || {};
     const titulo = $("#presentes-titulo");
@@ -520,6 +528,13 @@
       snapshot.forEach((doc) => { reservas[doc.id] = doc.data(); });
       itens.forEach((item) => aplicarEstado(item, reservas[item.id] || null));
 
+      // Atualiza a lista global de presentes ainda sem reserva — usada
+      // pra sugerir um item na Confirmação de Presença. Reavalia a
+      // sugestão a cada mudança (não só quando esta sessão reserva algo),
+      // já que a lista some carregando de forma assíncrona.
+      itensDisponiveis = itens.filter((item) => !item.linkExterno && !reservas[item.id]);
+      if (atualizarRsvpGiftInfo) atualizarRsvpGiftInfo();
+
       if (progressWrap && progressFill && progressText && itens.length > 0) {
         const reservados = itens.filter((item) => reservas[item.id]).length;
         const pct = Math.round((reservados / itens.length) * 100);
@@ -531,6 +546,31 @@
       console.error("Firestore (presentes) erro ao ouvir mudanças:", err);
       mostrarToast("Não foi possível carregar as reservas agora.");
     });
+
+    // Rola até um presente específico (troca a categoria dele se
+    // necessário) e dá um destaque visual rápido — usado pela sugestão
+    // de presente na Confirmação de Presença.
+    irParaPresente = (itemId) => {
+      const item = itens.find((i) => i.id === itemId);
+      const card = container.querySelector(`[data-item-id="${itemId}"]`);
+      if (!item || !card) return false;
+
+      const secao = card.closest(".gifts-category");
+      if (secao && secao.hidden) {
+        const chip = filtersEl?.querySelector(`.gifts-filter-chip[data-filtro="${item.categoria || secao.dataset.categoria}"]`);
+        chip?.click();
+      }
+
+      // Dá um instante pro filtro trocar (AOS.refreshHard + reflow) antes
+      // de calcular a posição de scroll do card.
+      setTimeout(() => {
+        const offsetTop = card.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top: offsetTop, behavior: "smooth" });
+        card.classList.add("pulse-highlight");
+        setTimeout(() => card.classList.remove("pulse-highlight"), 2400);
+      }, 60);
+      return true;
+    };
 
     // --- modal de reserva (pede o nome de quem está reservando) ---
     const modal = $("#reserve-modal");
@@ -616,6 +656,9 @@
     const jaConfirmadoEl = $("#rsvp-already");
     const jaConfirmadoNomeEl = $("#rsvp-already-nome");
     const notifyGiftBtn = $("#rsvp-notify-gift-btn");
+    const suggestionBox = $("#rsvp-suggestion");
+    const suggestionNome = $("#rsvp-suggestion-nome");
+    const suggestionBtn = $("#rsvp-suggestion-btn");
     if (!btn) return;
 
     const numero = (c.whatsapp || "").replace(/\D/g, "");
@@ -647,7 +690,28 @@
       // Só mostra o botão de "avisar presente" se ela reservou algo
       // DEPOIS de já ter confirmado presença (senão não tem o que avisar).
       if (notifyGiftBtn) notifyGiftBtn.hidden = !ultimoPresenteReservado;
+      atualizarSugestaoPresente();
     }
+
+    // Se a pessoa confirmou presença mas ainda não escolheu nenhum
+    // presente, sugere um item aleatório entre os que ainda estão
+    // disponíveis — pra reduzir confirmações sem reserva.
+    function atualizarSugestaoPresente() {
+      if (!suggestionBox || !suggestionNome || !suggestionBtn) return;
+      if (ultimoPresenteReservado || itensDisponiveis.length === 0) {
+        suggestionBox.hidden = true;
+        return;
+      }
+      const sugestao = itensDisponiveis[Math.floor(Math.random() * itensDisponiveis.length)];
+      suggestionNome.textContent = sugestao.nome;
+      suggestionBtn.dataset.itemId = sugestao.id;
+      suggestionBox.hidden = false;
+    }
+
+    suggestionBtn?.addEventListener("click", () => {
+      const itemId = suggestionBtn.dataset.itemId;
+      if (itemId && typeof irParaPresente === "function") irParaPresente(itemId);
+    });
 
     // Exposto pra initPresentes() chamar assim que alguém reservar um item.
     atualizarRsvpGiftInfo = () => {
@@ -656,9 +720,11 @@
         giftInfo.hidden = false;
       }
       // Se ela já tinha confirmado presença antes e agora reservou um
-      // presente, libera o botão de avisar sem precisar recarregar a página.
+      // presente, libera o botão de avisar e esconde a sugestão sem
+      // precisar recarregar a página.
       if (notifyGiftBtn && jaConfirmadoEl && !jaConfirmadoEl.hidden) {
         notifyGiftBtn.hidden = !ultimoPresenteReservado;
+        atualizarSugestaoPresente();
       }
     };
     atualizarRsvpGiftInfo();

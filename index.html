@@ -246,6 +246,18 @@
             <button type="button" class="btn btn-secondary rsvp-btn" id="rsvp-notify-gift-btn" hidden>
               <i class="fa-brands fa-whatsapp"></i> <span>Avisar presente escolhido</span>
             </button>
+
+            <!-- Sugestão de presente pra quem confirmou presença mas ainda
+                 não reservou nada — só aparece nesse caso. -->
+            <div class="rsvp-suggestion" id="rsvp-suggestion" hidden>
+              <p class="rsvp-suggestion-text">
+                Ainda não vi um presente escolhido no seu nome — que tal
+                <strong id="rsvp-suggestion-nome"></strong>?
+              </p>
+              <button type="button" class="btn btn-primary rsvp-btn" id="rsvp-suggestion-btn">
+                <i class="fa-solid fa-gift"></i> <span>Ver esse presente</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
