@@ -607,7 +607,11 @@
       if (!modal) return;
       itemAtual = item;
       if (modalItemName) modalItemName.textContent = item.nome;
-      if (modalInput) modalInput.value = "";
+      // Se a pessoa já reservou outro presente (ou já confirmou presença)
+      // antes, reaproveita o nome salvo em vez de pedir de novo.
+      let nomeSalvo = "";
+      try { nomeSalvo = localStorage.getItem(RSVP_NOME_KEY) || ""; } catch (_e) { /* Safari privado etc. */ }
+      if (modalInput) modalInput.value = nomeSalvo;
       modal.hidden = false;
       setTimeout(() => modalInput?.focus(), 50);
     }
@@ -638,6 +642,9 @@
         });
         mostrarToast(`Presente reservado, obrigado ${nome}! 🎉`);
         ultimoPresenteReservado = itemAtual.nome;
+        // Guarda o nome pra já vir preenchido na Confirmação de Presença
+        // logo abaixo — evita digitar o mesmo nome duas vezes.
+        try { localStorage.setItem(RSVP_NOME_KEY, nome); } catch (_e) { /* Safari privado etc. */ }
         if (atualizarRsvpGiftInfo) atualizarRsvpGiftInfo();
         fecharModal();
       } catch (err) {
@@ -745,6 +752,16 @@
       if (giftInfo && giftName && ultimoPresenteReservado) {
         giftName.textContent = ultimoPresenteReservado;
         giftInfo.hidden = false;
+      }
+      // A lista de presentes aparece antes da Confirmação de Presença na
+      // página, então o nome geralmente só é salvo DEPOIS que esse
+      // formulário já carregou. Preenche aqui também, se o campo ainda
+      // estiver vazio (e ela ainda não confirmou presença nesta visita).
+      if (nomeInput && !nomeInput.value && (!jaConfirmadoEl || jaConfirmadoEl.hidden)) {
+        try {
+          const nomeSalvo = localStorage.getItem(RSVP_NOME_KEY);
+          if (nomeSalvo) nomeInput.value = nomeSalvo;
+        } catch (_e) { /* Safari privado etc. */ }
       }
       // Se a pessoa reservou um presente enquanto o aviso pré-confirmação
       // estava aberto, esconde o aviso — ela já pode clicar em "Confirmar
